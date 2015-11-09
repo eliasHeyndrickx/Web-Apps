@@ -12,7 +12,10 @@ angular.module('hexChan', ['ui.router'])
       views: {
       	'nav': {
       		templateUrl: '/public/templates/navMain.html'
-      	}
+      	},
+        'cards':{
+          templateUrl: '/public/templates/cards.html'
+        }
       }
     })
     .state('search', {
@@ -21,7 +24,10 @@ angular.module('hexChan', ['ui.router'])
       views: {
       	'nav': {
       		templateUrl: '/public/templates/navSearch.html'
-      	}
+      	},
+        'cards':{
+          templateUrl: '/public/templates/cards.html'
+        }
       }
     })
 	
