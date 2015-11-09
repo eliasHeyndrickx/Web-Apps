@@ -1,0 +1,14 @@
+{
+  "name": "hexchan",
+  "version": "1.0.0",
+  "description": "Hexchan a new material imageboard!",
+  "keywords": "hexchan material imageboard",
+  "author": "heyndrickx.elias",
+  "license": "ISC",
+  "main": "server.js",
+	"dependencies": {
+		"express": "~4.7.2",
+		"mongoose": "~3.6.2",
+		"body-parser": "~1.14"
+	}
+}

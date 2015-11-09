@@ -1,0 +1,27 @@
+/* NavMain */
+.logoText{
+	margin-left: 10px;
+}
+
+.rowNoPadding{
+	padding: 0px !important;
+}
+
+/* navSearch, Home */
+
+#navSearchHome{
+	width: 100% !important;
+}
+
+#navSearchHome > a{
+	padding: 0px;
+	text-align: center;
+}
+
+.navFontSize{
+	font-size: 26px !important;
+}
+
+nav{
+	overflow: hidden;
+}
