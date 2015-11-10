@@ -4,19 +4,19 @@ angular.module('hexChan', ['ui.router'])
   $scope.boards = [
     {title: "Tech Board", 
      description: "Board about technology.",
-     img: '/img/tech.jpg'},
+     img: '/img/boards/tech.jpg'},
 
     {title: "Anime Board", 
      description: "Board about anime.",
-     img: '/img/anime.jpg'},
+     img: '/img/boards/anime.jpg'},
 
     {title: "Games Board", 
      description: "Board about games.",
-     img: '/img/games.jpg'},
+     img: '/img/boards/games.jpg'},
 
     {title: "Random Board",
      description: "Board about random stuff.",
-     img: '/img/random.jpg'}
+     img: '/img/boards/random.jpg'}
   ];
     
 }])
