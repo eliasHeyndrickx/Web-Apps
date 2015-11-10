@@ -1,0 +1,15 @@
+<div class="containerSize">
+  <div class="row">
+    <div ng-repeat="board in boards" class="col s6 m4 l3">
+      <div class="card">
+        <div class="card-image">
+          <img src="{{board.img}}">
+          <span class="card-title text-muted">{{board.title}}</span>
+        </div>
+        <div class="card-content">
+          <p>{{board.description}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

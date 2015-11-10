@@ -19,8 +19,10 @@
 	  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	</head>
 	<body ng-app="hexChan">
-		<nav>
+		<div ui-view></div>
+		<nav class="deep-purple">
 			<div ui-view="nav"></div>
 	  </nav>
+	  <div ui-view="cards"></div>
 	</body>
 </html>
