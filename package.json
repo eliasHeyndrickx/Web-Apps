@@ -7,13 +7,25 @@
   "license": "ISC",
   "main": "server.js",
   "dependencies": {
+    "body-parser": "~1.14",
     "express": "~4.7.2",
-    "mongoose": "~3.6.2",
-    "body-parser": "~1.14"
+    "gulp-uglifyjs": "^0.6.2",
+    "kerberos": "0.0.17",
+    "mongoose": "^4.2.5"
   },
   "devDependencies": {
     "gm": "^1.21.1",
     "gulp": "^3.9.0",
-    "gulp-image-resize": "^0.7.1"
+    "gulp-add-src": "^0.2.0",
+    "gulp-angular-templatecache": "^1.8.0",
+    "gulp-image-resize": "^0.7.1",
+    "gulp-minify-css": "^1.2.1",
+    "gulp-minify-html": "^1.0.4",
+    "gulp-rename": "^1.2.2",
+    "gulp-rimraf": "^0.2.0",
+    "gulp-uglify": "^1.4.2",
+    "gulp-watch": "^4.3.5",
+    "mongoose-seeder": "^1.2.1",
+    "seeder": "^0.2.1"
   }
 }

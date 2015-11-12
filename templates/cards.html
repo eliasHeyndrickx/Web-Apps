@@ -1,0 +1,18 @@
+<div class="containerSize">
+  <div class="row">
+    <div ng-repeat="(key, value) in boards | orderBy: 'title'" class="col s6 m4 l3">
+      <div class="card">
+        <a href="#/board/{{value._id}}">
+          <div class="card-image waves-effect waves-light">
+            <img ng-src="{{value.img}}">
+            <span class="card-title text-muted txtBlackBorder">
+            </span>
+          </div>
+        </a>
+        <div class="card-content">
+          <h5>{{value.title}}</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
