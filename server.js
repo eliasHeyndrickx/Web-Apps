@@ -6,7 +6,7 @@ var router 			= express.Router();
 var bodyParser	= require('body-parser'); 
 
 // Configuration
-app.use(express.static(__dirname + '/'));
+app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use('/', router);
@@ -14,39 +14,60 @@ app.use('/', router);
 // Mongoose & MongoDB
 var mongoose	= require('mongoose');
 
-//require('./models/posts.js');
-//require('./models/comments.js');
+// Schema's
+var Board = require('./model/board.js');
 
-//mongoose.connect('mongodb://localhost/news');
+// Seeds
+var seeder 		= require('seeder');
+var board_overview = require('./seeds/overview.json');
+
+mongoose.connect('mongodb://localhost/hexchan');
+
+mongoose.connection.on('open', function mongooseOpen(err){
+	if(err) throw err;
+
+	seeder(board_overview, mongoose, console.log, function done(err){
+		if(err){
+			console.log(err);
+		} 
+		console.log("Seeding complete!");
+	});
+
+});
 
 // Routing
-//require('./routes/home.js')(router, mongoose);
+router.param('boardId', function(req, res, next, id){
+	var query = Board.find({_id: id});
 
-/*
-router.param('post', function(req, res, next, id){
-	var query = Post.findById(id);
+	query.exec(function (err, board){
+    if (err) { return next(err); }
+    if (!board) { return next(new Error("Can't find board!")); }
 
-	query.exec(function(err, post){
-		if(err) return next(err);
-		if(!post) return next(new Error("can't find post"));
+		console.log(board);
 
-		req.post = post;
-		return next();
+    req.board = board;
+    return next();
+  });
+});
+
+router.get('/boards', function(req, res){
+	Board.find({}, function(err, boards){
+		if(err) console.log(err);
+		res.json(boards);
 	});
 });
-*/
 
-router.get('/', function(req, res){
-	res.sendfile('./public/index.html');
+router.get('/board/:boardId', function(req, res, next){
+	res.json(req.board);
+});
+
+router.get('/public', function(req, res){
+	res.sendfile('./dist/index.html');
 });
 
 console.log("Starting up server!");
 
-app.listen(8080);
-
-
-
-
+app.listen(process.env.PORT || 3000);
 
 
 
