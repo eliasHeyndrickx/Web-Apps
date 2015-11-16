@@ -1,6 +1,7 @@
-var boardsModule = angular.module('boards', [])
-	.factory('boards', ['$http', function($http){
+var boardsModule = angular.module('threads', [])
+	.factory('threads', ['$http', function($http){
 
+			/*
 			this.getBoard = function(id, callback){
 				$http({
 					  method: 'GET',
@@ -12,11 +13,12 @@ var boardsModule = angular.module('boards', [])
 				  });
 				
 			};
+			*/
 
-			this.getBoards = function(callback){
+			this.getThreads = function(boardId, callback){
 				$http({
 				  method: 'GET',
-				  url: '/boards'
+				  url: '/board/' + boardId + '/threads'
 				}).then(function successCallback(response) {
 			    callback(response);
 			  }, function errorCallback(responsÒe) {

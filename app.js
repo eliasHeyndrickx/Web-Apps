@@ -1,15 +1,36 @@
-angular.module('hexChan', ['ui.router', 'templates', 'boards'])
-.controller('homeController', ['$scope', '$stateParams', 
-  function($scope, $stateParams){
-    
+angular.module('hexChan', ['ui.router', 'templates', 'boards', 'threads'])
+.controller('navController', ['$scope', '$stateParams', 'boards',
+  function($scope, $stateParams, boards){
+  
+  // Set Page Title
+
+  // We are on the catalog.
+  if ($stateParams.hasOwnProperty('boardId')){
+    // Get board information
+    boards.getBoard($stateParams.boardId, function(response){
+      $scope.pageTitle = response.data[0].title;
+    });
+
+  }else{
+  // We are on the home page
+    $scope.pageTitle = "0xF Chan"; 
+  }
+
 }])
 .controller('overviewController', 
     ['$scope', 'boards', function($scope, boards){
     
     boards.getBoards(function(response){
       $scope.boards = response.data;
-      console.log(response);
     });
+
+}])
+.controller('catalogController', ['$scope', '$stateParams', 'threads', 
+  function($scope, $stateParams, threads){
+
+  threads.getThreads($stateParams.boardId, function(response){
+    $scope.threads = response.data;
+  });
 
 }])
 .config(['$stateProvider','$urlRouterProvider',
@@ -21,24 +42,38 @@ angular.module('hexChan', ['ui.router', 'templates', 'boards'])
       templateUrl: 'index.html',
       views: {
       	'nav': {
-      		templateUrl: 'navMain.html'
+      		templateUrl: 'navMain.html',
+          controller: 'navController'
       	},
         'content':{
-          templateUrl: 'cards.html',
+          templateUrl: 'board.html',
           controller: 'overviewController'
+        }
+      }
+    })
+    .state('board', {
+      url: '/home/board/:boardId',
+      templateUrl: 'index.html',
+      views: {
+        'nav': {
+          templateUrl: 'navMain.html',
+          controller: 'navController'
+        },
+        'content':{
+          templateUrl: 'boardCatalog.html',
+          controller: 'catalogController'
         }
       }
     })
     .state('search', {
       url: '/search',
       templateUrl: 'index.html',
-      controller: 'homeController',
       views: {
       	'nav': {
       		templateUrl: 'navSearch.html'
       	},
         'content':{
-          templateUrl: 'cards.html',
+          templateUrl: 'board.html',
           controller: 'searchController'
         }
       }
