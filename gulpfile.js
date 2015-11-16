@@ -11,7 +11,7 @@ var watch = require('gulp-watch');
 
 // ** Uglify and Bundle all JS files
 function uglifyCompressJS(){
-	console.log('Uglify and compressing JS');
+	console.log('Cache templates, Uglify and compressing JS');
 	gulp.src('./templates/*.html')
 	.pipe(templateCache({standalone: true}))
 	.pipe(addsrc(['./app.js', './js/*.js']))
@@ -68,7 +68,7 @@ gulp.task('default', function(){
 	updateBoardImg();
 	minifyCssMain();
 
-	watch(['./app.js', './js/*.js'], uglifyCompressJS);
+	watch(['./app.js', './js/*.js', './templates/*.html'], uglifyCompressJS);
 	watch('./server.js', uglifyServerJS);
 	watch('./index.html', compressHtmlIndex);
 	watch('./img/boards/**/*.jpg', updateBoardImg);
