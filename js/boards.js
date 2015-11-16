@@ -1,14 +1,15 @@
-var boardsModule = angular.module('boards', [])
-	.factory('boards', ['$http', function($http){
+angular.module('hexChan')
+	.factory('boards', ['$http', 'cards', function($http, cards){
 
 			this.getBoard = function(id, callback){
 				$http({
 					  method: 'GET',
 					  url: '/board/' + id
 					}).then(function successCallback(response) {
-				    callback(response);
-				  }, function errorCallback(responsÒe) {
-				    callback(false);
+						callback(response.data[0]);
+				  }, function errorCallback(response) {
+				  	console.log(response.data);
+						callback(false);
 				  });
 				
 			};
@@ -18,9 +19,13 @@ var boardsModule = angular.module('boards', [])
 				  method: 'GET',
 				  url: '/boards'
 				}).then(function successCallback(response) {
-			    callback(response);
-			  }, function errorCallback(responsÒe) {
-			    callback(false);
+					cards.setCurrentCards(response.data);
+					cards.setErrorState(false);
+			 		callback();
+			  }, function errorCallback(response) {
+			  	console.log(response.data);
+			  	cards.setErrorState(true);
+			  	callback();
 			  });
 			};
 
