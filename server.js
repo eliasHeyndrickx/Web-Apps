@@ -91,7 +91,7 @@ router.get('/public', function(req, res){
 
 console.log("Starting up server!");
 
-app.listen(4000);
+app.listen(3000);
 
 
 

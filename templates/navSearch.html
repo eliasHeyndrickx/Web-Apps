@@ -6,13 +6,14 @@
   <div class="col m2 l2 hide-on-small-only">
     <ul>
       <li id = "navSearchHome" >
-      <a href="#/home" class="navFontSize">Home</a></li>
+      <a href="#/home/{{lastBoard}}" class="navFontSize">{{pageTitle}}</a></li>
     </ul>
   </div>
   <div class = "col s10 m10 l10 rowNoPadding">
   	<form>
       <div class="input-field">
-        <input id="search" class="navFontSize" type="search" required>
+        <input id="search" class="navFontSize" type="search" 
+          ng-keyup="searchByTitle($event);" required>
         <label for="search">
           <i class="material-icons">search</i>
         </label>
@@ -22,7 +23,7 @@
   </div>
 </div>
 <ul class="side-nav" id="mobile-demo">
-  <li><a href="#/home">Home</a></li>
+  <li><a href="#/home">{{pageTitle}}</a></li>
 </ul>
 <script type="text/javascript">
   $(".button-collapse").sideNav();
