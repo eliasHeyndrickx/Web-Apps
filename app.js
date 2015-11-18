@@ -4,6 +4,8 @@ var app = angular.module('hexChan', ['ui.router', 'templates'])
   ['$scope', '$stateParams', 'sitename', 'boards', 'cards',
   function($scope, $stateParams, sitename, boards, cards){
   
+  console.log($stateParams);
+
   // In a specific bord
   if ($stateParams.boardId){
     
@@ -21,7 +23,7 @@ var app = angular.module('hexChan', ['ui.router', 'templates'])
   }
 
 }])
-.controller('navSearchController', 
+.controller('navSearchController',
   ['$scope', '$stateParams', 'boards', 'cards', 'sitename',
    function($scope, $stateParams, boards, cards, sitename){
   
@@ -41,7 +43,7 @@ var app = angular.module('hexChan', ['ui.router', 'templates'])
     // Set page title
     $scope.pageTitle = sitename;
   }else{
-    $scope.lastBoard = "board/" + $stateParams.boardId;
+    $scope.lastBoard = "board/" + $stateParams.boardId + '/catalog';
 
     // Set page title
     boards.getBoard($stateParams.boardId, function(response){
@@ -139,6 +141,7 @@ var app = angular.module('hexChan', ['ui.router', 'templates'])
       }
     })
     .state('board', {
+      abstract: true,
       url: '/home/board/:boardId',
       templateUrl: 'index.html',
       views: {
@@ -149,6 +152,27 @@ var app = angular.module('hexChan', ['ui.router', 'templates'])
         'content':{
           templateUrl: 'boardCatalog.html',
           controller: 'catalogController'
+        }
+      }
+    })
+    .state('board.catalog', {
+      url: '/catalog',
+      views: {
+        'menu': {
+          templateUrl: 'menuCatalog.html',
+          controller: 'navMainController'
+        }
+      }
+    })
+    .state('board.newThread', {
+      url: '/newThread',
+      views: {
+        'menu': {
+          templateUrl: '',
+          controller: 'navMainController'
+        },
+        'content@': {
+          templateUrl: 'boardNewThread.html'
         }
       }
     })
@@ -183,10 +207,9 @@ var app = angular.module('hexChan', ['ui.router', 'templates'])
 	
 	$urlRouterProvider.otherwise('/home/board');
 
-    //.state('posts', {
-    //	url: '/posts/{id}',
-    //	templateUrl: 'templates/posts.html',
-    //	controller: 'commentController'
-    //});
-   
 }]);
+
+
+
+
+

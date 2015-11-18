@@ -13,33 +13,6 @@
 	padding: 0px;
 }
 
-/* Create Thread Card */
-
-#thread-name{
-	margin-top: 0px;
-}
-
-#input_text{
-	margin-bottom: 0px;
-}
-
-.newThread button{
-	margin-top: -20px;
-}
-
-.newThread input[type="file"]{
-	padding-top: 14px;
-	padding-bottom: 16px;
-	width: 100%;
-}
-
-.newThread .g-recaptcha{
-	transform:scale(0.61);
-	-webkit-transform:scale(0.61);
-	transform-origin:0 0;
-	-webkit-transform-origin:0 0;
-}
-
 /* navSearch, Home */
 
 #navSearchHome{

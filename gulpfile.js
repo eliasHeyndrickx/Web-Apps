@@ -11,7 +11,7 @@ var watch = require('gulp-watch');
 
 // ** Uglify and Bundle all JS files
 function uglifyCompressJS(){
-	console.log('Cache templates, Uglify and compressing JS' + getCurrentTime());
+	console.log(getCurrentTime() + 'Cache templates, Uglify and compressing JS');
 	gulp.src('./templates/*.html')
 	.pipe(templateCache({standalone: true}))
 	.pipe(addsrc(['./app.js', './js/*.js']))
@@ -22,7 +22,7 @@ function uglifyCompressJS(){
 
 // ** Uglify server JS
 function uglifyServerJS(){
-	console.log('Uglifiy Server JS...' + getCurrentTime());
+	console.log(getCurrentTime() + 'Uglifiy Server JS...');
 	gulp.src('./server.js') 
 		.pipe(uglify())
 		.pipe(rename('server.min.js'))
@@ -31,7 +31,7 @@ function uglifyServerJS(){
 
 // ** Compress HTML Index
 function compressHtmlIndex(){
-	console.log('Compress Html Index...' + getCurrentTime());
+	console.log(getCurrentTime() + 'Compress Html Index...');
 	gulp.src('./index.html')
 		.pipe(minifyHtml())
 		.pipe(gulp.dest('./public/'));
@@ -39,7 +39,7 @@ function compressHtmlIndex(){
 
 // ** Update board update board images
 function resizeImages(){
-	console.log('Resizing Images...' + getCurrentTime());
+	console.log(getCurrentTime() + 'Resizing Images...');
 	// -- Resizing thread images
 		gulp.src('./public/img/threads')
 		.pipe(rimraf());
@@ -64,7 +64,7 @@ function resizeImages(){
 
 // ** Minify CSS
 function minifyCssMain(){
-	console.log('Minify Css Main...' + getCurrentTime());
+	console.log(getCurrentTime() + 'Minify Css Main...');
 	gulp.src('./css/main.css')
 		.pipe(minifyCss())
 		.pipe(gulp.dest('./public/css/'));
@@ -73,7 +73,9 @@ function minifyCssMain(){
 // ** Append Current Time
 function getCurrentTime(){
 	var date = new Date();
-	return " " + date.toUTCString();
+	return "[" + date.getHours()		+ ":"
+					 	 + date.getMinutes()	+ ":"
+					 	 + date.getSeconds()	+ "] ";
 }
 
 // Watch files for changes
