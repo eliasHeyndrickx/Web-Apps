@@ -1,18 +1,15 @@
-<div class="containerSize">
-  <div class="row">
-    <div ng-repeat="thread in threads | orderBy: 'title'" class="col s6 m4 l3">
-      <div class="card">
-        <a href="#home/board/{{thread._id}}">
-          <div class="card-image waves-effect waves-light">
-            <img src = "http://loremflickr.com/500/333/anime" ng-src="{{thread.img}}">
-            <span class="card-title text-muted">
-            </span>
-          </div>
-        </a>
-        <div class="card-content">
-          <h5 class = "flow-text">{{thread.title}}</h5>
-        </div>
-      </div>
-    </div>
+<md-content class="md-padding" layout="row" layout-wrap>
+  <div flex-sm="50"  flex-md= "33" flex-lg="25" flex-gt-lg="25"
+  ng-repeat="thread in threads | orderBy: 'title'">
+    <md-card>
+      <a ng-href="#/home/board/{{thread._id}}/catalog">
+        <img src = "http://loremflickr.com/500/333/anime" 
+             ng-src="{{thread.img}}" class="md-card-image"
+             alt="Washed Out">
+      </a>
+      <md-card-content>
+        <h1 class="md-title">{{thread.title}}</h1>
+      </md-card-content>
+    </md-card>
   </div>
-</div>
+</md-content>

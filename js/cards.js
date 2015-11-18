@@ -1,9 +1,13 @@
 angular.module('hexChan')
 	.factory('cards', [function(){
 
-			// Used for filter
-			var buffercards = [];
+			// Listeners
+			var listeners = [];
 
+			// Used for filter
+			var bufferCards = [];
+
+			// Current card array
 			var currentCards = [];
 
 			// Has there been an error an retrieval of the data
@@ -21,10 +25,28 @@ angular.module('hexChan')
 				return init;
 			};
 
+			// Discard current cards
+			this.resetCards = function(){
+				listeners = [];
+				bufferCards = [];
+				currentCards = [];
+				errorState = false;
+				init = false;
+			};
+
+			// Add listeners
+			this.addSingleUseListener = function(callback){
+				listeners.push(callback);
+			};
+
 			// Set currentCards
 			this.setCurrentCards = function(cards){
-				init = true;
 				currentCards = cards;
+				init = true;
+				for (var i = 0, len = listeners.length; i < len; i++) {
+					listeners[i]();
+				}
+				listeners = [];
 			};
 
 			// Get current cards
@@ -45,12 +67,12 @@ angular.module('hexChan')
 			// Set filter
 			this.setFilter = function(regExp){
 			
-				if(buffercards.length != 0){
-					currentCards = buffercards;
-					buffercards	= [];
+				if(bufferCards.length != 0){
+					currentCards = bufferCards;
+					bufferCards	= [];
 				}
 
-				buffercards = currentCards;
+				bufferCards = currentCards;
 
 				currentCards = currentCards.filter(function(value){
 					return regExp.test(value.title);

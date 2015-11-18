@@ -1,19 +1,24 @@
-<div class="nav-wrapper">
-  <a href="#/" class="brand-logo logoText waves-effect waves-light">{{pageTitle}}</a>
-  <a href="#/" data-activates="mobile-demo" class="button-collapse hide-on-med-and-up">
-  	<i class="material-icons">menu</i></a>
-  <ul ui-view="menu" id="nav-desktop-tablet" class="right hide-on-small-and-down">
-    <li>
-	  	<a href="#/search/board/{{boardId}}">
-	  		<i class="material-icons left">search</i>Search
-	  	</a>
-	  </li>
-    <ui-view>
-  </ul>
-  <ul class="side-nav" id="mobile-demo">
-    <li><a href="#/search/board/{{boardId}}">Search</a></li>
-  </ul>
+<div class="md-toolbar-tools" layout-fill>
+    <md-button class="md-icon-button" aria-label="Settings"
+      hide-gt-md ng-click="toggleNav()">
+    <i class="material-icons iconFix">menu</i>
+  </md-button>
+  <h3 class = "logoText hide-lg">
+    {{pageTitle}}
+  </h3>
+  <span flex></span>
+  <md-autocomplete
+    md-items="item in currentCards | filter:searchText"
+    md-search-text="searchText"
+    md-search-text-change="searchTextUpdate()"
+    md-selected-item-change="selectedCardUpdate()"
+    md-min-length="0"
+    placeholder="Search"
+    md-item-text="item.title">
+    <md-item-template>
+      <span md-highlight-text="searchText" 
+            md-highlight-flags="^i">
+            {{item.title}}</span>
+    </md-item-template>
+  </md-autocomplete>
 </div>
-<script type="text/javascript">
-  $(".button-collapse").sideNav();
-</script>

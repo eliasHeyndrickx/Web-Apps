@@ -9,6 +9,8 @@ var rimraf = require('gulp-rimraf');
 var addsrc = require('gulp-add-src');
 var watch = require('gulp-watch');
 
+var IMG_SIZE = 1000;
+
 // ** Uglify and Bundle all JS files
 function uglifyCompressJS(){
 	console.log(getCurrentTime() + 'Cache templates, Uglify and compressing JS');
@@ -46,7 +48,7 @@ function resizeImages(){
 
 		gulp.src('./img/threads/*.jpg')
 	    .pipe(imageResize({ 
-	      width : 500
+	      width: IMG_SIZE
 	    }))
 		.pipe(gulp.dest('./public/img/threads'));		
 
@@ -57,7 +59,7 @@ function resizeImages(){
 
 		gulp.src('./img/boards/*.jpg')
 	    .pipe(imageResize({ 
-	      width : 500
+	      width: IMG_SIZE
 	    }))
 		.pipe(gulp.dest('./public/img/boards/thumb'));
 }

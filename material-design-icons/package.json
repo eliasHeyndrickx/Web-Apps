@@ -1,0 +1,90 @@
+{
+  "_args": [
+    [
+      "material-design-icons",
+      "/Users/eliasheyndrickx/Web-Apps"
+    ]
+  ],
+  "_from": "material-design-icons@*",
+  "_id": "material-design-icons@2.1.0",
+  "_inCache": true,
+  "_location": "/material-design-icons",
+  "_nodeVersion": "4.1.1",
+  "_npmUser": {
+    "email": "addyosmani@gmail.com",
+    "name": "addyosmani"
+  },
+  "_npmVersion": "3.3.9",
+  "_phantomChildren": {},
+  "_requested": {
+    "name": "material-design-icons",
+    "raw": "material-design-icons",
+    "rawSpec": "",
+    "scope": null,
+    "spec": "*",
+    "type": "range"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/material-design-icons/-/material-design-icons-2.1.0.tgz",
+  "_shasum": "e714b14a5842b1b474eee1c5a26593032f93867c",
+  "_shrinkwrap": null,
+  "_spec": "material-design-icons",
+  "_where": "/Users/eliasheyndrickx/Web-Apps",
+  "author": {
+    "name": "Material Design Authors"
+  },
+  "bugs": {
+    "url": "https://github.com/google/material-design-icons/issues"
+  },
+  "dependencies": {},
+  "description": "Material Design icons by Google",
+  "devDependencies": {
+    "babel-core": "^6.1.2",
+    "babel-preset-es2015": "^6.1.2",
+    "gulp": "^3.9.0",
+    "gulp-if": "^2.0.0",
+    "gulp-svg-sprite": "^1.2.14",
+    "lodash": "^3.10.1",
+    "sprity": "git+https://github.com/shyndman/sprity.git#HEAD",
+    "sprity-gm": "^1.0.2",
+    "through2": "^2.0.0",
+    "underscore.string": "^3.2.2",
+    "vinyl": "^1.1.0"
+  },
+  "directories": {},
+  "dist": {
+    "shasum": "e714b14a5842b1b474eee1c5a26593032f93867c",
+    "tarball": "http://registry.npmjs.org/material-design-icons/-/material-design-icons-2.1.0.tgz"
+  },
+  "gitHead": "3c086456afadce6854e6b336c64520de132c64f3",
+  "homepage": "https://github.com/google/material-design-icons",
+  "installable": true,
+  "keywords": [
+    "google",
+    "icons",
+    "material",
+    "material-design"
+  ],
+  "license": "CC-BY-4.0",
+  "main": "index.html",
+  "maintainers": [
+    {
+      "name": "addyosmani",
+      "email": "addyosmani@gmail.com"
+    },
+    {
+      "name": "jestelle",
+      "email": "josh.estelle@gmail.com"
+    }
+  ],
+  "name": "material-design-icons",
+  "optionalDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/google/material-design-icons.git"
+  },
+  "scripts": {},
+  "version": "2.1.0"
+}

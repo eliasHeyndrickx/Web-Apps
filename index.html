@@ -1,30 +1,48 @@
 <!DOCTYPE html>
-<html>
-	<head>
+<html lang="en" ng-app="hexChan">
+  <head>
 		<title>HexChan!</title>
 		<meta charset="utf-8"/>
 		<!-- JQuery --> 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 		<!-- Angular -->
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-aria.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.4/angular-material.min.js"></script>
 		<script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.10/angular-ui-router.js"></script>
+		<script type="text/javascript" src="app.min.js"></script>
+		<!-- Angular Material -->
+		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.4/angular-material.min.css">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
+		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<script type="text/javascript" src="app.min.js"></script>
 		<!-- Captcha -->
 	  <script src='https://www.google.com/recaptcha/api.js'></script>
 		<!-- CSS -->
 		<link rel="stylesheet" type="text/css" href="/css/main.css">
-		<!-- Materialize -->
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.2/css/materialize.min.css">
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.2/js/materialize.min.js"></script>
-	  <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	  <!-- Optimized for mobile -->
-	  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-	</head>
-	<body ng-app="hexChan">
-		<div ui-view></div>
-		<nav class="deep-purple">
-			<div ui-view="nav"></div>
-	  </nav>
-	  <div ui-view="content"></div>
-	</body>
+	  <meta name="viewport" content="initial-scale=1" />
+  </head>
+  <body layout="column">
+    <md-toolbar layout="row">
+    	<div ui-view="nav" layout-fill></div>
+    </md-toolbar>
+    <div layout="row" flex>
+      <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2"
+       md-component-id="left">
+      </md-sidenav>
+			
+			<!--
+    	<md-sidenav layout="column" class="md-sidenav-left md-whiteframe-4dp"
+	  	 md-component-id="left">
+	      <md-button class="md-accent">Button 1</md-button>
+	      <md-button class="md-accent">Button 2</md-button>
+	    </md-sidenav>
+	 		-->
+      <div layout="column" flex id="content">  
+	      <div ui-view="content"></div>
+	    </div>
+    </div>
+  </body>
 </html>

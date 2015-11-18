@@ -11,6 +11,7 @@
     "express": "~4.7.2",
     "gulp-uglifyjs": "^0.6.2",
     "kerberos": "0.0.17",
+    "material-design-icons": "^2.1.0",
     "mongoose": "^4.2.5"
   },
   "devDependencies": {
