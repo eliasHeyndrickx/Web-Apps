@@ -38,13 +38,23 @@ function compressHtmlIndex(){
 }
 
 // ** Update board update board images
-function updateBoardImg(){
-	console.log('Update board Image...' + getCurrentTime());
-	// Delete all images first
+function resizeImages(){
+	console.log('Resizing Images...' + getCurrentTime());
+	// -- Resizing thread images
+		gulp.src('./public/img/threads')
+		.pipe(rimraf());
+
+		gulp.src('./img/threads/*.jpg')
+	    .pipe(imageResize({ 
+	      width : 500
+	    }))
+		.pipe(gulp.dest('./public/img/threads'));		
+
+
+	// -- Resizing board images
 		gulp.src('./public/img/boards/thumb')
 		.pipe(rimraf());
 
-		// Recreate images for boards
 		gulp.src('./img/boards/*.jpg')
 	    .pipe(imageResize({ 
 	      width : 500
@@ -69,15 +79,15 @@ function getCurrentTime(){
 // Watch files for changes
 gulp.task('default', function(){
 	uglifyServerJS();
+	resizeImages();
 	uglifyCompressJS();
 	compressHtmlIndex();
-	updateBoardImg();
 	minifyCssMain();
 
 	watch(['./app.js', './js/*.js', './templates/*.html'], uglifyCompressJS);
+	watch('./img/**/*.jpg', resizeImages);
 	watch('./server.js', uglifyServerJS);
 	watch('./index.html', compressHtmlIndex);
-	watch('./img/boards/**/*.jpg', updateBoardImg);
 	watch('./css/main.css', minifyCssMain);
 });
 
