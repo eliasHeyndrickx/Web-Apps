@@ -7,6 +7,7 @@
     {{pageTitle}}
   </h3>
   <span flex></span>
+  <div ui-view="menu"></div>
   <md-autocomplete
     md-items="item in currentCards | filter:searchText"
     md-search-text="searchText"

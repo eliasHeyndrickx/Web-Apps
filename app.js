@@ -1,4 +1,4 @@
-var app = angular.module('hexChan', ['ngMaterial', 'ui.router', 'templates'])
+var app = angular.module('hexChan', ['ngMaterial',  'ui.router', 'templates'])
 .constant("sitename", "0xF Chan")
 .controller('navMainController', 
   ['$scope', '$mdSidenav', '$stateParams',  'sitename', 'boards', 'cards',
@@ -78,7 +78,7 @@ var app = angular.module('hexChan', ['ngMaterial', 'ui.router', 'templates'])
     ['$scope', '$stateParams', 'cards', 'threads', 
     function($scope, $stateParams, cards, threads){
 
-    threads.getThreads(function(){
+    threads.getThreads($stateParams.boardId, function(){
       $scope.threads = cards.getCurrentCards();
     });
 
@@ -103,6 +103,18 @@ var app = angular.module('hexChan', ['ngMaterial', 'ui.router', 'templates'])
       );
     };
 
+}])
+.directive('hcNav', [function() {
+    return {
+        link: function(scope, element, attrs) {
+            element.on('click', function() {
+              console.log("Click");
+                scope.$apply(function() {
+                  window.location = attrs.hcNav;
+                });
+            });
+        }
+    }
 }])
 .config(['$mdThemingProvider', '$stateProvider','$urlRouterProvider',
 	function($mdThemingProvider, $stateProvider, $urlRouterProvider){

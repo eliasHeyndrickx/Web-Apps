@@ -9,6 +9,11 @@
 	font-size: 36px;
 }
 
+.menuIconFix{
+	position: relative;
+	top: 6px;
+}
+
 .rowNoPadding{
 	padding: 0px !important;
 }					 
