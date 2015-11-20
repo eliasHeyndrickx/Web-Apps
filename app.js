@@ -83,16 +83,6 @@ var app = angular.module('hexChan', ['ngMaterial',  'ui.router', 'templates'])
     // New Thread
     $scope.newThread = function(){
 
-      // Resize images
-      var cvs = document.createElement('canvas');
-      var cvc = cvs.getContext("2d");
-
-      var img = document.createElement("img");
-      var fileReader = new FileReader();  
-      fileReader.onload = function(e) {img.src = e.target.result}
-      fileReader.readAsDataURL($scope.myFile);
-
-
       var fd = new FormData();
       fd.append('threadImg', $scope.myFile);
 
@@ -113,25 +103,7 @@ var app = angular.module('hexChan', ['ngMaterial',  'ui.router', 'templates'])
       .error(function(response){
         console.log(response);
       });
-        /*
-      $http({
-        method: 'POST',
-        url: '/thread/newThread',
-        transformRequest: function(data){
-          var formData = new FormData();
-
-          formData.append("model", angular.toJson(data.model));
-          formData.append("file", myFile);
-
-          return formData;
-        },
-        data: {model: $scope.model, file: $scope.file},
-        headers: {'Content-Type': false}
-      }).then(function successCallback(response) {
-        window.location = '#/home/board/' + $stateParams.boardId;
-      }, function errorCallback(response) {
-        console.log(response);
-      });*/
+      
       
     };
 

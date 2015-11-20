@@ -114,11 +114,12 @@ router.get('/board/:boardId/threads', function(req, res, next){
 // Thread routing
 router.post('/thread/newThread', upload.single('threadImg'), function(req, res, next) {
 	console.log("Processing New Thread...");
-	console.log(req.file);
-
-	var file = req.file;
-
+	
+	var file = req.file; 
   var threadData = JSON.parse(req.body.data);
+
+  console.log(threadData.title);
+  console.log(threadData.boardId);
 
   var thread = new Thread({
   	title: threadData.title,
