@@ -1,3 +1,23 @@
+/* General */
+
+hr{
+	height: 0px;
+	border: none;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.117647);;
+}
+
+input[type="file"]{
+	padding-bottom: 26px;
+}
+
+.whiteTxt{
+	color: white !important;
+}
+
+ng-md-icon{
+  vertical-align: middle
+}
+
 /* NavMain */
 .logoText{
 	font-size: 25px;
@@ -9,19 +29,17 @@
 	font-size: 36px;
 }
 
-.menuIconFix{
-	position: relative;
-	top: 6px;
+.fltRight{
+	float: right;
 }
 
 .rowNoPadding{
 	padding: 0px !important;
-}					 
+}
 
 /* Cards */
-.containerPadding{
-	width: 90%;
-	padding: 0px;
+md-card > img{
+	cursor: pointer;
 }
 
 /* navSearch, Home */

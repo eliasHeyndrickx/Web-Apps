@@ -1,6 +1,6 @@
 <div class="md-toolbar-tools" layout-fill>
     <md-button class="md-icon-button" aria-label="Settings"
-      hide-gt-md ng-click="toggleNav()">
+      hide-gt-sm ng-click="toggleNav()">
     <i class="material-icons iconFix">menu</i>
   </md-button>
   <h3 class = "logoText hide-lg">
@@ -8,18 +8,4 @@
   </h3>
   <span flex></span>
   <div ui-view="menu"></div>
-  <md-autocomplete
-    md-items="item in currentCards | filter:searchText"
-    md-search-text="searchText"
-    md-search-text-change="searchTextUpdate()"
-    md-selected-item-change="selectedCardUpdate()"
-    md-min-length="0"
-    placeholder="Search"
-    md-item-text="item.title">
-    <md-item-template>
-      <span md-highlight-text="searchText" 
-            md-highlight-flags="^i">
-            {{item.title}}</span>
-    </md-item-template>
-  </md-autocomplete>
 </div>

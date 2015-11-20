@@ -3,8 +3,6 @@
   <head>
 		<title>HexChan!</title>
 		<meta charset="utf-8"/>
-		<!-- JQuery --> 
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 		<!-- Angular -->
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.min.js"></script>
@@ -15,10 +13,9 @@
 		<!-- Angular Material -->
 		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.4/angular-material.min.css">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
-		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<!-- App Code -->
 		<script type="text/javascript" src="app.min.js"></script>
-		<!-- Captcha -->
-	  <script src='https://www.google.com/recaptcha/api.js'></script>
 		<!-- CSS -->
 		<link rel="stylesheet" type="text/css" href="/css/main.css">
 	  <!-- Optimized for mobile -->
@@ -32,14 +29,6 @@
       <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2"
        md-component-id="left">
       </md-sidenav>
-			
-			<!--
-    	<md-sidenav layout="column" class="md-sidenav-left md-whiteframe-4dp"
-	  	 md-component-id="left">
-	      <md-button class="md-accent">Button 1</md-button>
-	      <md-button class="md-accent">Button 2</md-button>
-	    </md-sidenav>
-	 		-->
       <div layout="column" flex id="content">  
 	      <div ui-view="content"></div>
 	    </div>

@@ -75,9 +75,19 @@ function minifyCssMain(){
 // ** Append Current Time
 function getCurrentTime(){
 	var date = new Date();
-	return "[" + date.getHours()		+ ":"
-					 	 + date.getMinutes()	+ ":"
-					 	 + date.getSeconds()	+ "] ";
+
+	var hours = date.getHours() + "";
+	var minutes = date.getMinutes() + "";
+	var seconds = date.getSeconds() + "";
+	
+	// Padding '0'
+	hours 	= (hours.length === 1) ? '0' + hours : hours;
+	minutes = (minutes.length === 1) ? '0' + minutes : minutes;
+	seconds = (seconds.length === 1) ? '0' + seconds : seconds;
+
+	return '[' + hours 		+ ':'
+					 	 + minutes 	+ ':'
+					 	 + seconds	+ '] ';
 }
 
 // Watch files for changes

@@ -1,10 +1,9 @@
 <md-content class="md-padding" layout="row" layout-wrap>
-  <div flex-sm="50"  flex-md= "33" flex-lg="25" flex-gt-lg="25"
+  <div flex-sm="50" flex-md= "33" flex-lg="25" flex-gt-lg="25"
   ng-repeat="board in boards | orderBy: 'title'">
     <md-card>
-      <a ng-href="#/home/board/{{board._id}}/catalog">
-        <img ng-src="{{board.img}}" class="md-card-image" alt="Washed Out">
-      </a>
+      <img ng-src="{{board.img}}" class="md-card-image wave" alt="BoardImage" 
+      		 hc-nav="#/home/board/{{board._id}}">
       <md-card-content>
         <h1 class="md-title">{{board.title}}</h1>
       </md-card-content>

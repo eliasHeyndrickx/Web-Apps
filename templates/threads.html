@@ -3,9 +3,8 @@
   ng-repeat="thread in threads | orderBy: 'title'">
     <md-card>
       <a ng-href="#/home/board/{{thread._id}}/catalog">
-        <img src = "http://loremflickr.com/500/333/anime" 
-             ng-src="{{thread.img}}" class="md-card-image"
-             alt="Washed Out">
+        <img ng-src="{{thread.img}}" class="md-card-image"
+             alt="Thread Image">
       </a>
       <md-card-content>
         <h1 class="md-title">{{thread.title}}</h1>
