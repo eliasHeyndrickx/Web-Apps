@@ -38,8 +38,27 @@ ng-md-icon{
 }
 
 /* Cards */
-md-card > img{
+md-card .md-title{
+	white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.square{
+	box-sizing: border-box;
+	padding-top: 100%;
+	padding-right: 100%;
+	position: relative;
+}
+
+.square > img{
 	cursor: pointer;
+	width: 100%;
+	position: absolute;
+	top: 50%;
+	left: 0px;
+	transform: translate(0%, -50%);
+	-webkit-transform: translate(0%, -50%);
 }
 
 /* navSearch, Home */

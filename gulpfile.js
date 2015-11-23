@@ -17,7 +17,7 @@ function uglifyCompressJS(){
 	gulp.src('./templates/*.html')
 	.pipe(templateCache({standalone: true}))
 	.pipe(addsrc(['./app.js', './js/*.js']))
-	.pipe(uglify({mangle: false}))
+	.pipe(uglify({mangle: true}))
 	.pipe(rename('app.min.js'))
 	.pipe(gulp.dest('./public'));
 }

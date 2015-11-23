@@ -16,9 +16,16 @@ var storage = multer.diskStorage({
   },
   filename: function (req, file, cb) {
   	console.log(file);
-    cb(null, 
-    	crypto.createHash('sha1').update(JSON.stringify(file))
-    				.digest('hex') + "_" + file.originalname);
+
+  	cb(null, (function(){
+  		var fileType = file.mimetype.split('/')[1];
+
+    	var result = crypto.createHash('sha1').update(JSON.stringify(file))
+    				.digest('hex') + "." + fileType;
+
+    	return  result;	
+  	})());
+
   }
 })
 
@@ -102,7 +109,6 @@ router.get('/board/:boardId', function(req, res, next){
 });
 
 router.get('/board/:boardId/threads', function(req, res, next){
-	console.log(req.board[0]._id);
 
 	Thread.find({boardId: req.board[0]._id}, function(err, threads){
 		if(err) console.log(err);
@@ -117,9 +123,6 @@ router.post('/thread/newThread', upload.single('threadImg'), function(req, res, 
 	
 	var file = req.file; 
   var threadData = JSON.parse(req.body.data);
-
-  console.log(threadData.title);
-  console.log(threadData.boardId);
 
   var thread = new Thread({
   	title: threadData.title,
