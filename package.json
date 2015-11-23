@@ -11,7 +11,8 @@
     "express": "~4.7.2",
     "gulp-uglifyjs": "^0.6.2",
     "kerberos": "0.0.17",
-    "mongoose": "^4.2.5"
+    "mongoose": "^4.2.5",
+    "multer": "^1.1.0"
   },
   "devDependencies": {
     "gm": "^1.21.1",

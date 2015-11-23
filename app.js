@@ -1,9 +1,35 @@
-var app = angular.module('hexChan', ['ui.router', 'templates'])
-.constant("sitename", "0xF Chan")
+var app = angular.module('hexChan', ['ngMaterial',  'ui.router', 'templates'])
+.constant("hcConfig", {
+  'sitename': '0xF Chan',
+  'threadImgRatio': 1.5 
+})
 .controller('navMainController', 
-  ['$scope', '$stateParams', 'sitename', 'boards', 'cards',
-  function($scope, $stateParams, sitename, boards, cards){
-  
+  ['$scope', '$mdSidenav', '$stateParams',  'hcConfig', 'boards', 'cards',
+  function($scope, $mdSidenav, $stateParams, hcConfig, boards, cards){
+
+  // Reset the cards first
+  cards.resetCards();
+
+  $scope.toggleNav = function() {
+    $mdSidenav('left').toggle();
+  };
+
+  cards.addSingleUseListener(function(){
+    $scope.currentCards = cards.getCurrentCards();
+  });
+
+  //
+  $scope.selectedCardUpdate = function(){
+    cards.setFilter(new RegExp($scope.searchText, "i"));
+    $scope.currentCards = cards.getCurrentCards();
+  }
+
+  // Search bar
+  $scope.searchTextUpdate = function(){
+    cards.setFilter(new RegExp($scope.searchText, "i"));
+    $scope.currentCards = cards.getCurrentCards();
+  };
+
   // In a specific bord
   if ($stateParams.boardId){
     
@@ -17,68 +43,16 @@ var app = angular.module('hexChan', ['ui.router', 'templates'])
   }else{
 
   // We are on the home page
-    $scope.pageTitle = sitename;
+    $scope.pageTitle = hcConfig.sitename;
   }
 
 }])
-.controller('navSearchController', 
-  ['$scope', '$stateParams', 'boards', 'cards', 'sitename',
-   function($scope, $stateParams, boards, cards, sitename){
+.controller('boardsController', 
+  ['$scope', 'boards', 'cards', function($scope, boards, cards){
   
-  // Update Cards
-  $scope.searchByTitle = function($event){
-    var searchValue = document.getElementById("search").value;
-    var regExp = new RegExp(searchValue, "i");
-    cards.setFilter(regExp);
-  };
-
-  // Last board
-  if(!$stateParams.boardId){
-
-    // Home page
-    $scope.lastBoard = "board";
-
-    // Set page title
-    $scope.pageTitle = sitename;
-  }else{
-    $scope.lastBoard = "board/" + $stateParams.boardId;
-
-    // Set page title
-    boards.getBoard($stateParams.boardId, function(response){
-      $scope.pageTitle = response.title;
+    boards.getBoards(function(){
+      $scope.boards = cards.getCurrentCards();
     });
-  }
-
-}])
-.controller('searchThreadController', 
-    ['$scope', '$stateParams', 'threads', 'cards', 
-    function($scope, $stateParams, threads, cards){
-
-    // Are the cards valid?
-    if(cards.isValid()){
-      bindThreads();
-    }else{
-      threads.getThreads($stateParams.boardId, function(){
-        bindThreads();
-      });
-    }
-
-    function bindThreads(){
-      $scope.threads = cards.getCurrentCards();
-
-      $scope.$watch(function () { return cards.getCurrentCards(); }, 
-        function (newCards, oldCards) {
-          if (newCards !== oldCards) {
-              $scope.threads = cards.getCurrentCards();
-          }
-        }
-      );
-    };
-
-}])
-.controller('searchBoardController', 
-    ['$scope', '$stateParams', 'boards', 'cards', 
-    function($scope, $stateParams, boards, cards){
 
     // Are the cards valid?
     if(cards.isValid()){
@@ -102,29 +76,114 @@ var app = angular.module('hexChan', ['ui.router', 'templates'])
     };
 
 }])
-.controller('overviewController', 
-    ['$scope', 'boards', 'cards', function($scope, boards, cards){
-    
-    boards.getBoards(function(){
-      $scope.boards = cards.getCurrentCards();
-    });
+.controller('threadsController', 
+  ['$scope', '$http', '$state', '$stateParams', 'hcConfig', 'cards', 'threads', 
+  function($scope, $http, $state, $stateParams, hcConfig, cards, threads){
+
+    // New Thread
+    $scope.newThread = function(){
+
+      var fd = new FormData();
+      fd.append('threadImg', $scope.myFile);
+
+      fd.append('data', JSON.stringify({
+        title: $scope.threadName,
+        boardId: $stateParams.boardId
+      }));
+
+      $http.post('/thread/newThread', fd, {
+        withCredentials : false,
+        transformRequest: angular.identity,
+        headers: {'Content-Type': undefined}
+      })
+      .success(function(response){
+        window.location = '#/home/board/' + $stateParams.boardId;
+        console.log(response);
+      })
+      .error(function(response){
+        console.log(response);
+      });
+      
+      
+    };
+
+    // Check if on new thread.
+    if(!$state.is('newThread')){
+      threads.getThreads($stateParams.boardId, function(){
+        $scope.threads = cards.getCurrentCards();
+      });
+
+      // Are the cards valid?
+      if(cards.isValid()){
+        bindThreads();
+      }else{
+        threads.getThreads($stateParams.boardId, function(){
+          bindThreads();
+        });
+      }
+
+      function bindThreads(){
+        $scope.threads = cards.getCurrentCards();
+
+        $scope.$watch(function () { return cards.getCurrentCards(); }, 
+          function (newCards, oldCards) {
+            if (newCards !== oldCards) {
+                $scope.threads = cards.getCurrentCards();
+            }
+          }
+        );
+      }; 
+    }
 
 }])
-.controller('catalogController', 
-    ['$scope', '$stateParams', 'cards', 'threads', 
-    function($scope, $stateParams, cards, threads){
+.directive('hcNav', [function() {
+    return {
+        link: function(scope, element, attrs) {
+            element.on('click', function() {
+                scope.$apply(function() {
+                  window.location = attrs.hcNav;
+                });
+            });
+        }
+    }
+}])
+.directive('fileModel', ['$parse', function ($parse) {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            var model = $parse(attrs.fileModel);
+            var modelSetter = model.assign;
+            
+            element.bind('change', function(){
+                scope.$apply(function(){
+                    modelSetter(scope, element[0].files[0]);
+                });
+            });
+        }
+    };
+}])
+.config(['$mdThemingProvider', '$stateProvider','$urlRouterProvider',
+	function($mdThemingProvider, $stateProvider, $urlRouterProvider){
 
-    threads.getThreads($stateParams.boardId, function(){
-      $scope.threads = cards.getCurrentCards();
-      console.log(cards.getCurrentCards());
+  // Set Theme
+  $mdThemingProvider.theme('default')
+    .primaryPalette('deep-purple', {
+      'default': '500',/*
+      '': '',
+      '': '',
+      '': ''*/
+    })
+    .accentPalette('purple', {
+      'default': 'A100', /*
+      '': '',
+      '': '',
+      '': ''*/
     });
 
-}])
-.config(['$stateProvider','$urlRouterProvider',
-	function($stateProvider, $urlRouterProvider){
-
+  // Set Routes
   $stateProvider
-    .state('overview', {
+    .state('board', {
+      abstract: true,
       url: '/home/board',
       templateUrl: 'index.html',
       views: {
@@ -133,12 +192,22 @@ var app = angular.module('hexChan', ['ui.router', 'templates'])
           controller: 'navMainController'
       	},
         'content':{
-          templateUrl: 'boardOverview.html',
-          controller: 'overviewController'
+          templateUrl: 'boards.html',
+          controller: 'boardsController'
         }
       }
     })
-    .state('board', {
+    .state('board.menu', {
+      url: '',
+      views: {
+        'menu':{
+          templateUrl: 'menuBoard.html',
+          controller: 'navMainController'
+        }
+      }
+    })
+    .state('thread', {
+      abstract: true,
       url: '/home/board/:boardId',
       templateUrl: 'index.html',
       views: {
@@ -147,46 +216,39 @@ var app = angular.module('hexChan', ['ui.router', 'templates'])
           controller: 'navMainController'
         },
         'content':{
-          templateUrl: 'boardCatalog.html',
-          controller: 'catalogController'
+          templateUrl: 'threads.html',
+          controller: 'threadsController'
         }
       }
     })
-    .state('searchBoards', {
-      url: '/search/board/',
-      templateUrl: 'index.html',
+    .state('thread.catalog', {
+      url: '',
       views: {
-        'nav': {
-          templateUrl: 'navSearch.html',
-          controller: 'navSearchController'
+        'menu': {
+          templateUrl: 'menuThread.html',
+          controller: 'navMainController'
+        }
+      }
+    })
+    .state('thread.newThread', {
+      url: '/newThread',
+      views: {
+        'menu': {
+          templateUrl: '',
+          controller: 'navMainController'
         },
-        'content':{
-          templateUrl: 'boardOverview.html',
-          controller: 'searchBoardController'     
-        }
-      }
-    })
-    .state('searchThreads', {
-      url: '/search/board/:boardId',
-      templateUrl: 'index.html',
-      views: {
-      	'nav': {
-      		templateUrl: 'navSearch.html',
-          controller: 'navSearchController'
-      	},
-        'content':{
-          templateUrl: 'boardCatalog.html',
-          controller: 'searchThreadController'     
+        'content@': {
+          templateUrl: 'threadsNewThread.html',
+          controller: 'threadsController'
         }
       }
     })
 	
 	$urlRouterProvider.otherwise('/home/board');
 
-    //.state('posts', {
-    //	url: '/posts/{id}',
-    //	templateUrl: 'templates/posts.html',
-    //	controller: 'commentController'
-    //});
-   
 }]);
+
+
+
+
+

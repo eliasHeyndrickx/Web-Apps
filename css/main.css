@@ -1,24 +1,64 @@
+/* General */
+
+hr{
+	height: 0px;
+	border: none;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.117647);;
+}
+
+input[type="file"]{
+	padding-bottom: 26px;
+}
+
+.whiteTxt{
+	color: white !important;
+}
+
+ng-md-icon{
+  vertical-align: middle
+}
+
 /* NavMain */
 .logoText{
+	font-size: 25px;
 	margin-left: 10px;
+}
+
+.iconFix{
+	display: block !important;
+	font-size: 36px;
+}
+
+.fltRight{
+	float: right;
 }
 
 .rowNoPadding{
 	padding: 0px !important;
 }
 
-.txtBlackBorder{
-	text-shadow: 1px 0 0  rgba(0, 0, 0, 0.6),
-							 0 -1px 0 rgba(0, 0, 0, 0.6),
-							 0 1px 0  rgba(0, 0, 0, 0.6),
-							 -1px 0 0 rgba(0, 0, 0, 0.6);
+/* Cards */
+md-card .md-title{
+	white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* Cards */
+.square{
+	box-sizing: border-box;
+	padding-top: 100%;
+	padding-right: 100%;
+	position: relative;
+}
 
-.containerPadding{
-	width: 90%;
-	padding: 0px;
+.square > img{
+	cursor: pointer;
+	width: 100%;
+	position: absolute;
+	top: 50%;
+	left: 0px;
+	transform: translate(0%, -50%);
+	-webkit-transform: translate(0%, -50%);
 }
 
 /* navSearch, Home */
