@@ -289,7 +289,7 @@ var app = angular.module('hexChan', ['ngMaterial',  'ui.router', 'templates'])
           controller: 'navMainController'
         },
         'sideNavOptions@':{
-          templateUrl: '',
+          templateUrl: 'sideNavEmpty.html',
           controller: ''
         },
         'content@': {
@@ -319,6 +319,10 @@ var app = angular.module('hexChan', ['ngMaterial',  'ui.router', 'templates'])
         'menu': {
           templateUrl: 'menuPost.html',
           controller: 'menuController'
+        },
+        'sideNavOptions@':{
+          templateUrl: 'sideNavPost.html',
+          controller: 'navMainController'
         }
       }
     })
@@ -330,7 +334,7 @@ var app = angular.module('hexChan', ['ngMaterial',  'ui.router', 'templates'])
           controller: 'navMainController'
         },
         'sideNavOptions@':{
-          templateUrl: '',
+          templateUrl: 'sideNavEmpty.html',
           controller: ''
         },
         'content@': {
