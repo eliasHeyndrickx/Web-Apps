@@ -1,15 +1,14 @@
 <md-content class="md-padding" layout="row" layout-wrap>
-  <div flex-sm="50"  flex-md= "33" flex-lg="25" flex-gt-lg="25" flex
+  <div flex-sm="50"  flex-md= "33" flex-lg="25" flex-gt-lg="25"
   ng-repeat="thread in threads | orderBy: 'title'">
     <md-card>
-      <a ng-href="#/home/board/{{thread._id}}/catalog">
-      <div class = "square">
+      <div class = "square" hc-href="#/home/board/{{boardId}}/{{thread._id}}">
         <img ng-src="{{thread.img}}" class="md-card-image"
-             alt="Thread Image">  
+             alt="Thread Image">
       </div>
-      </a>
+      {{threadLink}}
       <md-card-content>
-        <h1 class="md-title">{{thread.title}}</h1>
+        <h1 class="md-title titleEllipsis">{{thread.title}}</h1>
       </md-card-content>
     </md-card>
   </div>

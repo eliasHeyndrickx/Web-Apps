@@ -2,20 +2,19 @@
   <div flex-sm="0" flex-md="10" flex-lg="20" flex-gt-lg="20"></div>
   <div flex-sm="100" flex-md="80" flex-lg="60" flex-gt-lg="60">
     <md-card class = "md-padding">
-      <form name="threadForm" ng-submit="newThread()" >
+      <form name="postForm" ng-submit="newPost()" >
         <md-input-container class="md-accent">
-          <label>Thread name</label>
-          <input
-            ng-model="threadName"
-            md-maxlength="40"
-            required />
+          <label>Message</label>
+          <textarea ng-model="content" required
+           columns="1" md-maxlength="600" rows="5"></textarea>
+        </md-input-container>
         </md-input-container>
         <div>
-          <input required accept="image/*" type="file" file-model="myFile"/>
+          <input accept="image/*" type="file" file-model="myFile"/>
         </div>
         <div>
           <md-button type="submit" class="md-raised md-accent whiteTxt">
-            Create Thread
+            Post
             <ng-md-icon class="material-icons" md-48 md-light>
               send</ng-md-icon>
           </md-button>  

@@ -1,28 +1,28 @@
 {
 	"Thread":{
 
-		"Mirai Nikki":{
+		"Thread 1":{
 			"_id": "e74d6061efc50ac75fb9ff2a",
-			"title": "Who watched this shit", 
+			"title": "A test thread", 
 	   	"img": "",
 	   	"boardId": 1 
 		},
 
-		"One Piece":{
+		"Thread 2":{
 			"_id": "5d0fd0420d0861444f3c84df",
 			"title": "Watch!", 
 	   	"img": "",
 	   	"boardId": 1 
 		},
 
-		"Death Note":{
+		"Thread 3":{
 			"_id": "170659334245f32338f23530",
-			"title": "Most overrated anime ever.", 
+			"title": "Most overrated anime ever. In the entire world I swear to god if I...", 
 	   	"img": "",
 	   	"boardId": 1 
 		},
 
-		"Bakamonogatari":{
+		"Thread 4":{
 			"_id": "08deccee7c10e35ba1513330",
 			"title": "Just watching this.", 
 	   	"img": "",
@@ -30,7 +30,3 @@
 		}
 	}
 }
-
-
-
-

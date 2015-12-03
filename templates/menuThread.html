@@ -1,17 +1,17 @@
 <md-autocomplete
-	class = "fltRight"
-  md-items="item in currentCards | filter:searchText"
+  class = "fltRight"
+  md-items="data in searchData | filter:searchText"
   md-search-text="searchText"
   md-search-text-change="searchTextUpdate()"
-  md-selected-item-change="selectedCardUpdate()"
   md-min-length="0"
-  placeholder="Search for threads"
-  md-item-text="item.title">
+  placeholder="Search for boards"
+  md-item-text="data.title">
   <md-item-template>
     <span md-highlight-text="searchText" md-highlight-flags="^i">
-      {{item.title}}</span>
+      {{data.title}}</span>
   </md-item-template>
 </md-autocomplete>
-<md-button class="md-raised fltRight" hc-nav="#/home/board/{{boardId}}/newThread">
+
+<md-button hide show-gt-sm class="md-raised fltRight" hc-href="#/home/board/{{boardId}}/newThread">
 	<ng-md-icon class="material-icons">add_box</ng-md-icon>New Thread
 </md-button>

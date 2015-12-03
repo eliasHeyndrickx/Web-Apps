@@ -27,7 +27,6 @@ angular.module('hexChan')
 
 			// Discard current cards
 			this.resetCards = function(){
-				listeners = [];
 				bufferCards = [];
 				currentCards = [];
 				errorState = false;
@@ -35,18 +34,16 @@ angular.module('hexChan')
 			};
 
 			// Add listeners
-			this.addSingleUseListener = function(callback){
+			this.addInitAndChangeListener = function(callback){
 				listeners.push(callback);
+
 			};
 
 			// Set currentCards
 			this.setCurrentCards = function(cards){
 				currentCards = cards;
 				init = true;
-				for (var i = 0, len = listeners.length; i < len; i++) {
-					listeners[i]();
-				}
-				listeners = [];
+				notifyListeners();
 			};
 
 			// Get current cards
@@ -55,7 +52,8 @@ angular.module('hexChan')
 			};
 
 			// Set error messages
-			this.setErrorState = function(errState){
+			this.setErrorState = function(errState, error){
+				if(errState && typeof error !== "undefined") console.log(error);
 				errorState = errState;
 			};
 
@@ -65,19 +63,25 @@ angular.module('hexChan')
 			};
 
 			// Set filter
-			this.setFilter = function(regExp){
-			
+			this.setFilter = function(regExp, filterProp){
 				if(bufferCards.length != 0){
 					currentCards = bufferCards;
 					bufferCards	= [];
 				}
 
 				bufferCards = currentCards;
-
+				
 				currentCards = currentCards.filter(function(value){
-					return regExp.test(value.title);
+					return regExp.test(value[filterProp]);
 				});
+				notifyListeners();
 			};
+
+			function notifyListeners(){
+				for (var i = 0, len = listeners.length; i < len; i++) {
+					listeners[i](currentCards);
+				}
+			}
 			
 			return this;
 		}

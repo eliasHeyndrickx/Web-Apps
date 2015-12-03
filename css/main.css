@@ -13,15 +13,42 @@ input[type="file"]{
 .whiteTxt{
 	color: white !important;
 }
-
 ng-md-icon{
   vertical-align: middle
+}
+
+::selection {
+  background: #673AB7; /* WebKit/Blink Browsers */
+  color: white;
+}
+
+::-moz-selection {
+  background: #673AB7; /* Gecko Browsers */
+  color: white;
+}
+
+md-list-item{
+	padding-top: 5px !important;
+	padding-bottom: 5px !important;
+}
+
+/* Side Nav */
+#sideNavUiView{
+	padding: 5px !important;
+}
+
+.sideNavBtnStretch{
+	margin: 0px;
+	width: 100%;
+	padding: 5px;
+	box-sizing: border-box; 
 }
 
 /* NavMain */
 .logoText{
 	font-size: 25px;
 	margin-left: 10px;
+	max-width: 200px;
 }
 
 .iconFix{
@@ -37,8 +64,60 @@ ng-md-icon{
 	padding: 0px !important;
 }
 
+/* Post Item */
+.post-content{
+	display: inline;
+	font-family: roboto;
+	white-space: pre-wrap;
+}
+
+.post-img{
+	float: left;
+}
+
+.post-gt-lg > img{
+	max-width: 250px;
+	max-height: 250px;
+	padding-right: 24px;
+}
+
+.post-gt-lg > p{
+	font-size: 24px;
+}
+
+.post-lg > img{
+	max-width: 200px;
+	max-height: 200px;
+	padding-right: 20px;
+	padding-bottom: 20px;
+}
+
+.post-lg > p{
+	font-size: 22px;
+}
+
+.post-md > img{
+	max-width: 150px;
+	max-height: 150px;
+	padding-right: 20px;
+}
+
+.post-md > p{
+	font-size: 20px;
+}
+
+.post-sm > img{
+	max-width: 125px;
+	max-height: 125px;
+	padding-right: 10px;
+}
+
+.post-sm > p{
+	font-size: 17px;
+}
+
 /* Cards */
-md-card .md-title{
+.titleEllipsis{
 	white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
