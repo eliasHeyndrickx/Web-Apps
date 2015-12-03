@@ -114,11 +114,11 @@ var app = angular.module('hexChan', ['ngMaterial',  'ui.router', 'templates'])
         transformRequest: angular.identity,
         headers: {'Content-Type': undefined}
       })
-      .success(function(response){
-        window.location = '#/home/board/' + $stateParams.boardId;
+      .success(function(res){
+        window.location = '#/home/board/' + res.boardId + "/" + res._id;
       })
-      .error(function(response){
-        console.log(response);
+      .error(function(res){
+        console.log(res);
       });
       
       

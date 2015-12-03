@@ -167,11 +167,11 @@ router.post('/thread/newThread', upload.single('threadImg'), function(req, res, 
   });
 
   thread.save(function(err, thread){
-  	if(err){
+  	if(err){ // On failure
   		console.log(err);
   		res.send(false);
-  	}else{
-  		res.send(true);
+  	}else{ // On succes
+  		res.send(thread);
   	}
   });
 
@@ -179,7 +179,6 @@ router.post('/thread/newThread', upload.single('threadImg'), function(req, res, 
 
 // Get all posts from specific thread
 router.get('/posts/:id', function(req, res, next){
-	console.log(req.id);
 	Post.find({threadId: req.id}, function(err, posts){
 		if(err) console.log(err);
 		res.json(posts);
@@ -211,8 +210,6 @@ router.post('/post/newPost', upload.single('postImg'), function(req, res, next) 
 
   post.save(function(err, post){
   	if(err){
-  		console.log("Showing error:");
-  		console.log(err);
   		res.send(false);
   	}else{
   		res.send(true);
