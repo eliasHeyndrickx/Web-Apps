@@ -146,6 +146,10 @@ var app = angular.module('hexChan', ['ngMaterial',  'ui.router', 'templates'])
   ['$scope', '$http', '$state', '$stateParams', 'cards', 'posts', 
     function($scope, $http, $state, $stateParams, cards, posts){
   
+  $scope.hideImg = function(post){
+    return Boolean(post.img);
+  };
+
   $scope.newPost = function(){
 
     var fd = new FormData();

@@ -3,34 +3,34 @@
       <md-list-item class="md-list-item-text" ng-repeat="post in posts">
 
         <!-- Small devices -->
-        <div hide show-gt-lg class="post-gt-lg">
-          <img ng-src="{{post.img}}"
-               src = "http://loremflickr.com/400/400" 
-               alt="Post Image"
+        <div hide show-gt-lg class = "post-gt-lg">
+          <img ng-src = "{{post.img}}"
+               ng-show = "hideImg(post)"
+               alt = "Post Image"
                class = "post-img">
           <pre class = "post-content">{{post.content}}</pre>
         </div>
         <!-- Medium devices -->
         <div hide show-lg class="post-lg">
-          <img ng-src="{{post.img}}"
-               src = "http://loremflickr.com/400/400" 
-               alt="Post Image"
+          <img ng-src = "{{post.img}}"
+               ng-show = "hideImg(post)"
+               alt = "Post Image"
                class = "post-img">
           <pre class = "post-content">{{post.content}}</pre>
         </div>
         <!-- Large devices -->
         <div hide show-md class="post-md">
-          <img ng-src="{{post.img}}"
-               src = "http://loremflickr.com/400/400" 
-               alt="Post Image"
+          <img ng-src = "{{post.img}}"
+               ng-show = "hideImg(post)"
+               alt = "Post Image"
                class = "post-img">
           <pre class = "post-content">{{post.content}}</pre>
         </div>
         <!-- Extra Large devices -->
         <div hide show-sm class="post-sm">
-          <img ng-src="{{post.img}}"
-               src = "http://loremflickr.com/400/400" 
-               alt="Post Image"
+          <img ng-src = "{{post.img}}"
+               ng-show = "hideImg(post)"
+               alt = "Post Image"
                class = "post-img">
           <pre class = "post-content">{{post.content}}</pre>
         </div>
