@@ -143,9 +143,10 @@ var app = angular.module('hexChan', ['ngMaterial',  'ui.router', 'templates'])
 
 }])
 .controller('postsController', 
-  ['$scope', '$http', '$state', '$stateParams', 'cards', 'posts', 
-    function($scope, $http, $state, $stateParams, cards, posts){
-  
+  ['$scope', '$http', '$state', '$compile', '$stateParams', 'cards', 'posts', 
+    function($scope, $http, $state, $compile, $stateParams, cards, posts){
+
+
   $scope.hideImg = function(post){
     return Boolean(post.img);
   };

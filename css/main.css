@@ -81,7 +81,7 @@ md-list-item{
 	padding-right: 24px;
 }
 
-.post-gt-lg > pre{
+.post-gt-lg > p{
 	font-size: 24px;
 }
 
@@ -92,7 +92,7 @@ md-list-item{
 	padding-bottom: 20px;
 }
 
-.post-lg > pre{
+.post-lg > p{
 	font-size: 22px;
 }
 
@@ -102,7 +102,7 @@ md-list-item{
 	padding-right: 20px;
 }
 
-.post-md > pre{
+.post-md > p{
 	font-size: 20px;
 }
 
@@ -112,7 +112,7 @@ md-list-item{
 	padding-right: 10px;
 }
 
-.post-sm > pre{
+.post-sm > p{
 	font-size: 17px;
 }
 
