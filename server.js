@@ -4,13 +4,14 @@ var express 		= require('express');
 var app					= express();
 var router 			= express.Router();
 var crypto			= require('crypto');
+var uuid 				= require('uuid');
 
 var bodyParser	= require('body-parser'); 
 app.use(bodyParser.json({limit: '2mb'}));
 app.use(bodyParser.urlencoded({limit: '2mb', extended: true}));
 
 // Multer configuration
-var multer = require('multer')
+var multer = require('multer');
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -21,10 +22,7 @@ var storage = multer.diskStorage({
   	cb(null, (function(){
   		var fileType = file.mimetype.split('/')[1];
 
-    	var result = crypto.createHash('sha1').update(JSON.stringify(file))
-    				.digest('hex') + "." + fileType;
-
-    	return  result;	
+    	return uuid.v4() + "." + fileType;
   	})());
 
   }
