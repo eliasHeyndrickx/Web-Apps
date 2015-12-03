@@ -3,7 +3,7 @@
   ng-repeat="board in boards | orderBy: 'title'">
     <md-card>
       <img ng-src="{{board.img}}" class="md-card-image wave" alt="BoardImage" 
-      		 hc-nav="#/home/board/{{board._id}}">
+      		 hc-href="#/home/board/{{board._id}}">
       <md-card-content>
         <h1 class="md-title">{{board.title}}</h1>
       </md-card-content>

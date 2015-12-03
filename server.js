@@ -5,7 +5,9 @@ var app					= express();
 var router 			= express.Router();
 var crypto			= require('crypto');
 
-//var bodyParser	= require('body-parser'); 
+var bodyParser	= require('body-parser'); 
+app.use(bodyParser.json({limit: '2mb'}));
+app.use(bodyParser.urlencoded({limit: '2mb', extended: true}));
 
 // Multer configuration
 var multer = require('multer')
@@ -15,7 +17,6 @@ var storage = multer.diskStorage({
     cb(null, 'public/img/tmp/');
   },
   filename: function (req, file, cb) {
-  	console.log(file);
 
   	cb(null, (function(){
   		var fileType = file.mimetype.split('/')[1];
@@ -51,28 +52,30 @@ app.use('/', router);
 var mongoose	= require('mongoose');
 
 // Schema's
-var Board = require('./model/board.js');
-var Thread = require('./model/thread.js');
+var Board 	= require('./model/board.js');
+var Thread 	= require('./model/thread.js');
+var Post 		= require('./model/post.js');
 
 // Seeds
 var seeder 		= require('seeder');
-var board_overview = require('./seeds/overview.json');
-var threads = require('./seeds/thread.json');
+var boards 		= require('./seeds/boards.json');
+var threads 	= require('./seeds/threads.json');
+var posts			= require('./seeds/posts.json');
 
 mongoose.connect('mongodb://localhost/hexchan');
 
 mongoose.connection.on('open', function mongooseOpen(err){
 	if(err) throw err;
 
-	// Seeding board overview
-	seeder(board_overview, mongoose, console.log, function done(err){
+	// Seeding boards
+	seeder(boards, mongoose, console.log, function done(err){
 		if(err){
 			console.log(err);
 		} 
-		console.log("Seeding boards overview complete!");
+		console.log("Seeding boards complete!");
 	});
 
-	// Seeding catalog board
+	// Seeding threads
 	seeder(threads, mongoose, console.log, function done(err){
 		if(err){
 			console.log(err);
@@ -80,23 +83,51 @@ mongoose.connection.on('open', function mongooseOpen(err){
 		console.log("Seeding threads complete!");
 	});
 
+	// Seeding posts
+	seeder(posts, mongoose, console.log, function done(err){
+		if(err){
+			console.log(err);
+		} 
+		console.log("Seeding posts complete!");
+	});
+
 });
 
 // Routing
 
 // Board Routing
-router.param('boardId', function(req, res, next, id){
+router.param('board', function(req, res, next, id){
 	var query = Board.find({_id: id});
 
 	query.exec(function (err, board){
     if (err) { return next(err); }
     if (!board) { return next(new Error("Can't find board!")); }
 
-    req.board = board;
+    req.board = board[0];
     return next();
   });
 });
 
+// Thread Routing
+router.param('thread', function(req, res, next, id){
+	var query = Thread.find({_id: id});
+
+	query.exec(function (err, thread){
+    if (err) { return next(err); }
+    if (!thread) { return next(new Error("Can't find thread!")); }
+
+    req.thread = thread[0];
+    return next();
+  });
+});
+
+// Returning ID's
+router.param('id', function(req, res, next, id){
+	req.id = id;
+	return next();
+});
+
+// Get all boards
 router.get('/boards', function(req, res){
 	Board.find({}, function(err, boards){
 		if(err) console.log(err);
@@ -104,17 +135,22 @@ router.get('/boards', function(req, res){
 	});
 });
 
-router.get('/board/:boardId', function(req, res, next){
+// Get specific board
+router.get('/board/:board', function(req, res, next){
 	res.json(req.board);
 });
 
-router.get('/board/:boardId/threads', function(req, res, next){
-
-	Thread.find({boardId: req.board[0]._id}, function(err, threads){
+// Get all threads from specific board
+router.get('/threads/:id', function(req, res, next){
+	Thread.find({boardId: req.id}, function(err, threads){
 		if(err) console.log(err);
 		res.json(threads);
 	});
-	
+});
+
+// Get specific thread
+router.get('/thread/:thread', function(req, res){
+	res.json(req.thread);
 });
 
 // Thread routing
@@ -141,13 +177,57 @@ router.post('/thread/newThread', upload.single('threadImg'), function(req, res, 
 
 });
 
+// Get all posts from specific thread
+router.get('/posts/:id', function(req, res, next){
+	console.log(req.id);
+	Post.find({threadId: req.id}, function(err, posts){
+		if(err) console.log(err);
+		res.json(posts);
+	});
+});
+
+// Post routing
+router.post('/post/newPost', upload.single('postImg'), function(req, res, next) {
+	console.log("Processing New Post...");
+
+	var postData = JSON.parse(req.body.data);
+
+	// Post has an image attached.
+	if(req.hasOwnProperty("file")){
+		var file = req.file; 
+
+	
+		var post = new Post({
+	 		content: postData.content,
+	  	threadId: mongoose.Types.ObjectId(postData.threadId),
+	  	img: '/img/tmp/' + file.filename
+	  });
+	}else{
+		var post = new Post({
+	  	content: postData.content,
+	  	threadId: mongoose.Types.ObjectId(postData.threadId),
+	  	img: ''
+	  });
+	}
+
+  post.save(function(err, post){
+  	if(err){
+  		console.log(err);
+  		res.send(false);
+  	}else{
+  		res.send(true);
+  	}
+  });
+
+});
+
 router.get('/public', function(req, res){
 	res.sendfile('./dist/index.html');
 });
 
 console.log("Starting up server!");
 
-app.listen(4000);
+app.listen(3000);
 
 // Methods
 function stringStartsWith (str, prefix) {

@@ -1,0 +1,51 @@
+<md-content class="md-padding" layout-wrap>
+  <md-list>
+      <md-list-item class="md-list-item-text" ng-repeat="post in posts">
+
+        <!-- Small devices -->
+        <div hide show-gt-lg class="post-gt-lg">
+          <img ng-src="{{post.img}}"
+               src = "http://loremflickr.com/400/400" 
+               alt="Post Image"
+               class = "post-img">
+          <p class = "post-content">{{post.content}}</p>
+        </div>
+        <!-- Medium devices -->
+        <div hide show-lg class="post-lg">
+          <img ng-src="{{post.img}}"
+               src = "http://loremflickr.com/400/400" 
+               alt="Post Image"
+               class = "post-img">
+          <p class = "post-content">{{post.content}}</p>
+        </div>
+        <!-- Large devices -->
+        <div hide show-md class="post-md">
+          <img ng-src="{{post.img}}"
+               src = "http://loremflickr.com/400/400" 
+               alt="Post Image"
+               class = "post-img">
+          <p class = "post-content">{{post.content}}</p>
+        </div>
+        <!-- Extra Large devices -->
+        <div hide show-sm class="post-sm">
+          <img ng-src="{{post.img}}"
+               src = "http://loremflickr.com/400/400" 
+               alt="Post Image"
+               class = "post-img">
+          <p class = "post-content">{{post.content}}</p>
+        </div>
+        <md-divider ng-if="!$last"></md-divider>
+      </md-list-item>
+    </md-list>
+      
+      <!--
+      <md-card>
+        <img ng-src="{{post.img}}" src = "http://loremflickr.com/320/240"
+         alt="Post Image">
+        <p style="display: inline-block !important;">
+          {{post.content}}  
+        </p>
+      </md-card>
+      -->
+  
+</md-content>

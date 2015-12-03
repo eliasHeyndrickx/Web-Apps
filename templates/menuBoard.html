@@ -1,14 +1,13 @@
 <md-autocomplete
 	class = "fltRight"
-  md-items="item in currentCards | filter:searchText"
+  md-items="data in searchData | filter:searchText"
   md-search-text="searchText"
   md-search-text-change="searchTextUpdate()"
-  md-selected-item-change="selectedCardUpdate()"
   md-min-length="0"
   placeholder="Search for boards"
-  md-item-text="item.title">
+  md-item-text="data.title">
   <md-item-template>
     <span md-highlight-text="searchText" md-highlight-flags="^i">
-      {{item.title}}</span>
+      {{data.title}}</span>
   </md-item-template>
 </md-autocomplete>
