@@ -164,8 +164,7 @@ var app = angular.module('hexChan', ['ngMaterial',  'ui.router', 'templates'])
       headers: {'Content-Type': undefined}
     })
     .success(function(response){
-      console.log($stateParams);
-      window.location = "#/home/board/" + $stateParams.boardId + "" + $stateParams.threadId;
+      window.location = "#/home/board/" + $stateParams.boardId + "/" + $stateParams.threadId;
     })
     .error(function(response){
       console.log(response);

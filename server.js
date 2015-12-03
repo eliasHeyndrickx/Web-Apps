@@ -196,7 +196,6 @@ router.post('/post/newPost', upload.single('postImg'), function(req, res, next) 
 	if(req.hasOwnProperty("file")){
 		var file = req.file; 
 
-	
 		var post = new Post({
 	 		content: postData.content,
 	  	threadId: mongoose.Types.ObjectId(postData.threadId),
@@ -212,6 +211,7 @@ router.post('/post/newPost', upload.single('postImg'), function(req, res, next) 
 
   post.save(function(err, post){
   	if(err){
+  		console.log("Showing error:");
   		console.log(err);
   		res.send(false);
   	}else{
