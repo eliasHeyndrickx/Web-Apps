@@ -1,0 +1,13 @@
+<md-autocomplete
+	class = "fltRight"
+  md-items="data in searchData | filter:searchText"
+  md-search-text="searchText"
+  md-search-text-change="searchTextUpdate()"
+  md-min-length="0"
+  placeholder="Search for boards"
+  md-item-text="data.title">
+  <md-item-template>
+    <span md-highlight-text="searchText" md-highlight-flags="^i">
+      {{data.title}}</span>
+  </md-item-template>
+</md-autocomplete>
