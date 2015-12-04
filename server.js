@@ -1,14 +1,31 @@
-
 // Set up
 var express 		= require('express');
+var bodyParser	= require('body-parser'); 
+var jwt 				= require('express-jwt');
 var app					= express();
 var router 			= express.Router();
-var crypto			= require('crypto');
 var uuid 				= require('uuid');
+var mongoose		= require('mongoose');
+var passport 		= require('passport');
 
-var bodyParser	= require('body-parser'); 
+// Registering models
+// Schema's
+var Board 	= require('./model/board.js');
+var Thread 	= require('./model/thread.js');
+var Post 		= require('./model/post.js');
+var User 		= require('./model/user.js');
+
+// Configuration
+require('./config/passport');
+
+app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json({limit: '2mb'}));
+app.use('/', router);
 app.use(bodyParser.urlencoded({limit: '2mb', extended: true}));
+app.use(passport.initialize());
+
+// JWT tokens
+var auth = jwt({secret: 'HexKey', credentialsRequired: false, userProperty: 'loginData'});
 
 // Multer configuration
 var multer = require('multer');
@@ -40,25 +57,13 @@ var upload = multer({
 	fileFilter: fileFilter
 });
 
-// Configuration
-app.use(express.static(__dirname + '/public'));
-//app.use(bodyParser.json({limit: '50mb'}));
-//app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
-app.use('/', router);
-
-// Mongoose & MongoDB
-var mongoose	= require('mongoose');
-
-// Schema's
-var Board 	= require('./model/board.js');
-var Thread 	= require('./model/thread.js');
-var Post 		= require('./model/post.js');
-
 // Seeds
 var seeder 		= require('seeder');
-var boards 		= require('./seeds/boards.json');
-var threads 	= require('./seeds/threads.json');
+
+var boards		= require('./seeds/boards.json');
+var threads		= require('./seeds/threads.json');
 var posts			= require('./seeds/posts.json');
+var users			= require('./seeds/users.json');
 
 mongoose.connect('mongodb://localhost/hexchan');
 
@@ -87,6 +92,14 @@ mongoose.connection.on('open', function mongooseOpen(err){
 			console.log(err);
 		} 
 		console.log("Seeding posts complete!");
+	});
+
+	// Seeding users
+	seeder(users, mongoose, console.log, function done(err){
+		if(err){
+			console.log(err);
+		} 
+		console.log("Seeding users complete!");
 	});
 
 });
@@ -184,27 +197,22 @@ router.get('/posts/:id', function(req, res, next){
 });
 
 // Post routing
-router.post('/post/newPost', upload.single('postImg'), function(req, res, next) {
+router.post('/post/newPost', auth, upload.single('postImg'), function(req, res, next) {
 	console.log("Processing New Post...");
+
+	// Registerd User?
+	if(typeof req.loginData !== "undefined"){
+		console.log(req.loginData);
+	}
 
 	var postData = JSON.parse(req.body.data);
 
-	// Post has an image attached.
-	if(req.hasOwnProperty("file")){
-		var file = req.file; 
-
-		var post = new Post({
-	 		content: postData.content,
-	  	threadId: mongoose.Types.ObjectId(postData.threadId),
-	  	img: '/img/tmp/' + file.filename
-	  });
-	}else{
-		var post = new Post({
-	  	content: postData.content,
-	  	threadId: mongoose.Types.ObjectId(postData.threadId),
-	  	img: ''
-	  });
-	}
+	var post = new Post({
+		author: (typeof req.loginData === "undefined") ? "" : req.loginData.username,
+		content: postData.content,
+		threadId: mongoose.Types.ObjectId(postData.threadId),
+		img: (!req.hasOwnProperty("file")) ? "" : '/img/tmp/' + req.file.filename
+	});
 
   post.save(function(err, post){
   	if(err){
@@ -216,8 +224,45 @@ router.post('/post/newPost', upload.single('postImg'), function(req, res, next) 
 
 });
 
+// Login Routing
+
+// Register
+router.post('/register', function(req, res, next){
+  if(!req.body.username || !req.body.password)
+    return;
+  
+  var user = new User();
+
+  user.username = req.body.username;
+
+  user.setPassword(req.body.password)
+
+  user.save(function (err){
+    if(err){ return next(err); }
+
+    return res.json({token: user.generateJWT()})
+  });
+});
+
+// Login
+router.post('/login', function(req, res, next){
+
+  if(!req.body.username || !req.body.password)
+    return;
+
+  passport.authenticate('local', function(err, user, info){
+    if(err){ return next(err); }
+
+    if(user){
+      return res.json({token: user.generateJWT()});
+    } else {
+      return res.status(401).json(info);
+    }
+  })(req, res, next);
+});
+
 router.get('/public', function(req, res){
-	res.sendfile('./dist/index.html');
+	res.sendfile('./public/index.html');
 });
 
 console.log("Starting up server!");

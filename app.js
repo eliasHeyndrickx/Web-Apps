@@ -3,13 +3,23 @@ var app = angular.module('hexChan', ['ngMaterial',  'ui.router', 'templates'])
   'sitename': '0xF Chan'
 })
 .controller('navMainController', 
-  ['$scope', '$mdSidenav', '$state', '$stateParams', 'hcConfig', 'boards', 'threads', 'cards',
-  function($scope, $mdSidenav, $state, $stateParams, hcConfig, boards, threads, cards){
+  ['$scope', '$mdSidenav', '$state', '$stateParams', 'hcConfig', 'auth', 'boards', 'threads', 'cards',
+  function($scope, $mdSidenav, $state, $stateParams, hcConfig, auth, boards, threads, cards){
 
   // Side nav toggle
   $scope.toggleNav = function() {
     $mdSidenav('left').toggle();
   };
+
+  // Is logged in
+  $scope.isLoggedIn = function(){
+    return auth.isLoggedIn();
+  }
+
+  $scope.logout = function(){
+    auth.logOut();
+    window.location = "#/home/board";
+  }
 
   // Search
   cards.addInitAndChangeListener(function(currentCards){
@@ -143,9 +153,8 @@ var app = angular.module('hexChan', ['ngMaterial',  'ui.router', 'templates'])
 
 }])
 .controller('postsController', 
-  ['$scope', '$http', '$state', '$compile', '$stateParams', 'cards', 'posts', 
-    function($scope, $http, $state, $compile, $stateParams, cards, posts){
-
+  ['$scope', '$http', '$state', '$compile', '$stateParams', 'auth', 'cards', 'posts',
+    function($scope, $http, $state, $compile, $stateParams, auth, cards, posts){
 
   $scope.hideImg = function(post){
     return Boolean(post.img);
@@ -164,9 +173,11 @@ var app = angular.module('hexChan', ['ngMaterial',  'ui.router', 'templates'])
     }));
     
     $http.post('/post/newPost', fd, {
-      withCredentials: false,
       transformRequest: angular.identity,
-      headers: {'Content-Type': undefined}
+      headers: {
+        'Content-Type': undefined,
+        'Authorization': 'Bearer ' + auth.getToken()
+      }
     })
     .success(function(response){
       window.location = "#/home/board/" + $stateParams.boardId + "/" + $stateParams.threadId;
@@ -178,9 +189,45 @@ var app = angular.module('hexChan', ['ngMaterial',  'ui.router', 'templates'])
 
   if(!$state.is('newPost')){
     posts.getPosts($stateParams.threadId, function(){
+      var posts = cards.getCurrentCards();
+
+      for(var i = 0, l = posts.length; i < l; i++){
+        console.log(posts[i]);
+      }
+
       $scope.posts = cards.getCurrentCards();
     });
   }
+
+}])
+.controller('loginController',
+  ['$scope', 'auth', function($scope, auth){
+
+    var user = {};
+    
+    $scope.register = function(){
+      auth.register($scope.user).error(function(error){
+        $scope.error = error;
+      }).then(function(){
+        //$state.go('home');
+      });
+    };
+    
+    $scope.logIn = function(){
+
+      user = {
+        username: $scope.user.username,
+        password: $scope.user.password
+      };
+
+      auth.logIn(JSON.stringify(user), function(){
+        window.location = "#/home/board";
+      }).error(function(error){
+        $scope.error = error;
+      }).then(function(){
+        //$state.go('home');
+      });
+    };
 
 }])
 .directive('hcHref', [function() {
@@ -229,6 +276,20 @@ var app = angular.module('hexChan', ['ngMaterial',  'ui.router', 'templates'])
 
   // Set Routes
   $stateProvider
+    .state('login', {
+      url: '/home/login',
+      templateUrl: 'index.html',
+      views: {
+        'nav': {
+          templateUrl: 'navMain.html',
+          controller: 'navMainController'
+        },
+        'content':{
+          templateUrl: 'login.html',
+          controller: 'loginController'
+        }
+      }
+    })
     .state('board', {
       abstract: true,
       url: '/home/board',
@@ -343,7 +404,7 @@ var app = angular.module('hexChan', ['ngMaterial',  'ui.router', 'templates'])
         }
       }
     })
-
+    
 
 	$urlRouterProvider.otherwise('/home/board');
 
