@@ -225,12 +225,14 @@ router.post('/post/newPost', auth, upload.single('postImg'), function(req, res, 
 
 // Register
 router.post('/register', function(req, res, next){
+	console.log("hi");
+
   if(!req.body.username || !req.body.password)
     return;
   
-  var user = new User();
-
-  user.username = req.body.username;
+  var user = new User({
+  	username: req.body.username
+  });
 
   user.setPassword(req.body.password)
 

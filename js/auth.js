@@ -30,9 +30,10 @@ angular.module('hexChan')
 	  }
 	};
 
-	auth.register = function(user){
+	auth.register = function(user, cb){
 	  return $http.post('/register', user).success(function(data){
 	    auth.saveToken(data.token);
+	    cb();
 	  });
 	};
 

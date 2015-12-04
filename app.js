@@ -196,17 +196,21 @@ var app = angular.module('hexChan', ['ngMaterial',  'ui.router', 'templates'])
   }
 
 }])
-.controller('loginController',
+.controller('AuthController',
   ['$scope', 'auth', function($scope, auth){
 
     var user = {};
     
     $scope.register = function(){
-      auth.register($scope.user).error(function(error){
-        $scope.error = error;
-      }).then(function(){
-        //$state.go('home');
-      });
+
+      user = {
+        username: $scope.username,
+        password: $scope.password
+      };
+
+      auth.register(JSON.stringify(user), function(){
+        window.location = "#/home/board";
+      })
     };
     
     $scope.logIn = function(){
@@ -218,11 +222,8 @@ var app = angular.module('hexChan', ['ngMaterial',  'ui.router', 'templates'])
 
       auth.logIn(JSON.stringify(user), function(){
         window.location = "#/home/board";
-      }).error(function(error){
-        $scope.error = error;
-      }).then(function(){
-        //$state.go('home');
-      });
+      })
+      
     };
 
 }])
@@ -284,7 +285,7 @@ var app = angular.module('hexChan', ['ngMaterial',  'ui.router', 'templates'])
   // Set Routes
   $stateProvider
     .state('login', {
-      url: '/home/login',
+      url: '/login',
       templateUrl: 'index.html',
       views: {
         'nav': {
@@ -293,7 +294,21 @@ var app = angular.module('hexChan', ['ngMaterial',  'ui.router', 'templates'])
         },
         'content':{
           templateUrl: 'login.html',
-          controller: 'loginController'
+          controller: 'AuthController'
+        }
+      }
+    })
+    .state('register', {
+      url: '/register',
+      templateUrl: 'index.html',
+      views: {
+        'nav': {
+          templateUrl: 'navMain.html',
+          controller: 'navMainController'
+        },
+        'content':{
+          templateUrl: 'register.html',
+          controller: 'AuthController'
         }
       }
     })

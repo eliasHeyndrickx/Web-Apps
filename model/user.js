@@ -2,7 +2,6 @@ var mongoose = require('mongoose');
 var crypto   = require('crypto');       // For encryption
 var jwt      = require('jsonwebtoken'); // Tokens 
 
-
 var UserSchema = new mongoose.Schema({
   username: {type: String, lowercase: true, unique: true},
   hash: String,
@@ -34,4 +33,4 @@ UserSchema.methods.generateJWT = function() {
   }, 'HexKey');
 };
 
-mongoose.model('User', UserSchema);
+module.exports = mongoose.model('User', UserSchema);
