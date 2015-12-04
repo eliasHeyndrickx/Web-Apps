@@ -27,9 +27,9 @@ var app = angular.module('hexChan', ['ngMaterial',  'ui.router', 'templates'])
   });
 
   $scope.searchData = cards.getCurrentCards();
-  // On Thread
-  if($stateParams.hasOwnProperty('threadId')){
 
+  // On Thread
+  if($state.includes('thread')){
     $scope.boardId = $stateParams.boardId; // Set boardId
     $scope.threadId = $stateParams.threadId; // Set threadId
 
@@ -38,9 +38,8 @@ var app = angular.module('hexChan', ['ngMaterial',  'ui.router', 'templates'])
       $scope.pageTitle = thread.title; // Set Title
     })
 
-  // On Board
-  }else if($stateParams.hasOwnProperty('boardId')){
-
+  // On board
+  }else if($state.includes('board')){
     $scope.boardId = $stateParams.boardId; // Set boardId
 
     // Get board title
@@ -48,16 +47,13 @@ var app = angular.module('hexChan', ['ngMaterial',  'ui.router', 'templates'])
       $scope.pageTitle = board.title;
     });
 
-  }else{
-
-    // On overview
-    $scope.pageTitle = hcConfig.sitename;
-
-  }
-
-  if($state.is("error")){
-    console.log($stateParams.errorType === "board");
+  // On error
+  }else if($state.includes('error')){
     $scope.message = ($stateParams.errorType === "board") ? "Board not found!" : "Thread not found!";
+
+  // Main Page
+  }else {
+    $scope.pageTitle = hcConfig.sitename;
   }
 
 }])
