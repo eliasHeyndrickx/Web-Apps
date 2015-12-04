@@ -27,9 +27,9 @@ var app = angular.module('hexChan', ['ngMaterial',  'ui.router', 'templates'])
   });
 
   $scope.searchData = cards.getCurrentCards();
-  // On Thread
-  if($stateParams.hasOwnProperty('threadId')){
 
+  // On Thread
+  if($state.includes('thread')){
     $scope.boardId = $stateParams.boardId; // Set boardId
     $scope.threadId = $stateParams.threadId; // Set threadId
 
@@ -38,9 +38,8 @@ var app = angular.module('hexChan', ['ngMaterial',  'ui.router', 'templates'])
       $scope.pageTitle = thread.title; // Set Title
     })
 
-  // On Board
-  }else if($stateParams.hasOwnProperty('boardId')){
-
+  // On board
+  }else if($state.includes('board')){
     $scope.boardId = $stateParams.boardId; // Set boardId
 
     // Get board title
@@ -48,11 +47,13 @@ var app = angular.module('hexChan', ['ngMaterial',  'ui.router', 'templates'])
       $scope.pageTitle = board.title;
     });
 
-  }else{
+  // On error
+  }else if($state.includes('error')){
+    $scope.message = ($stateParams.errorType === "board") ? "Board not found!" : "Thread not found!";
 
-    // On overview
+  // Main Page
+  }else {
     $scope.pageTitle = hcConfig.sitename;
-
   }
 
 }])
@@ -111,6 +112,9 @@ var app = angular.module('hexChan', ['ngMaterial',  'ui.router', 'templates'])
     // New Thread
     $scope.newThread = function(){
 
+      // Display not found page
+      
+
       var fd = new FormData();
       fd.append('threadImg', $scope.myFile);
 
@@ -128,7 +132,6 @@ var app = angular.module('hexChan', ['ngMaterial',  'ui.router', 'templates'])
         window.location = '#/home/board/' + res.boardId + "/" + res._id;
       })
       .error(function(res){
-        console.log(res);
       });
       
       
@@ -148,7 +151,11 @@ var app = angular.module('hexChan', ['ngMaterial',  'ui.router', 'templates'])
       });
 
       // Get the current cards.
-      threads.getThreads($stateParams.boardId);
+      threads.getThreads($stateParams.boardId, function(){
+        // Valid thread
+      }, function(){
+        window.location = '#/error/board';
+      });
     }
 
 }])
@@ -188,11 +195,14 @@ var app = angular.module('hexChan', ['ngMaterial',  'ui.router', 'templates'])
   }
 
   if(!$state.is('newPost')){
+
     posts.getPosts($stateParams.threadId, function(){
       var posts = cards.getCurrentCards();
-
       $scope.posts = cards.getCurrentCards();
+    }, function(){
+      window.location = '#/error/thread';
     });
+
   }
 
 }])
@@ -259,7 +269,6 @@ var app = angular.module('hexChan', ['ngMaterial',  'ui.router', 'templates'])
       for(var i = 0, l = input.length; i < l; i++){
         if(!input[i].author) input[i].author = "anonymous";
       }
-
       return input;
     }
   };
@@ -309,6 +318,20 @@ var app = angular.module('hexChan', ['ngMaterial',  'ui.router', 'templates'])
         'content':{
           templateUrl: 'register.html',
           controller: 'AuthController'
+        }
+      }
+    })
+    .state('error', {
+      url: '/error/:errorType',
+      templateUrl: 'index.html',
+      views: {
+        'nav': {
+          templateUrl: 'navMain.html',
+          controller: 'navMainController'
+        },
+        'content': {
+          templateUrl: 'errorBoard.html',
+          controller: 'navMainController'
         }
       }
     })
