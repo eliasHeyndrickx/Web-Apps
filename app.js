@@ -28,18 +28,17 @@ var app = angular.module('hexChan', ['ngMaterial',  'ui.router', 'templates'])
 
   $scope.searchData = cards.getCurrentCards();
 
-  // On Thread
-  if($state.includes('thread')){
-    $scope.boardId = $stateParams.boardId; // Set boardId
-    $scope.threadId = $stateParams.threadId; // Set threadId
+  // Board catalog
+  if($state.includes('board')){
 
-    // Get thread title
-    threads.getThread($stateParams.threadId, function(thread){
-      $scope.pageTitle = thread.title; // Set Title
-    })
+    // Set main title
+    $scope.pageTitle = hcConfig.sitename;
 
-  // On board
-  }else if($state.includes('board')){
+  
+  // On thread catalog of board
+  }else if($state.includes('thread')){
+    
+
     $scope.boardId = $stateParams.boardId; // Set boardId
 
     // Get board title
@@ -47,13 +46,22 @@ var app = angular.module('hexChan', ['ngMaterial',  'ui.router', 'templates'])
       $scope.pageTitle = board.title;
     });
 
-  // On error
-  }else if($state.includes('error')){
-    $scope.message = ($stateParams.errorType === "board") ? "Board not found!" : "Thread not found!";
 
-  // Main Page
-  }else {
+  // On thread, with list of posts
+  }else if($state.includes('post')){
+    $scope.boardId = $stateParams.boardId;    // Set boardId
+    $scope.threadId = $stateParams.threadId;  // Set threadId
+
+    // Get thread title
+    threads.getThread($stateParams.threadId, function(thread){
+      $scope.pageTitle = thread.title;  // Set Title
+    })
+
+  // On error page (not found).
+  }else if($state.includes('error')){
     $scope.pageTitle = hcConfig.sitename;
+
+    $scope.message = ($stateParams.errorType === "board") ? "Board not found!" : "Thread not found!";
   }
 
 }])
@@ -129,7 +137,7 @@ var app = angular.module('hexChan', ['ngMaterial',  'ui.router', 'templates'])
         headers: {'Content-Type': undefined}
       })
       .success(function(res){
-        window.location = '#/home/board/' + res.boardId + "/" + res._id;
+        window.location.replace('#/home/board/' + res.boardId + "/" + res._id);
       })
       .error(function(res){
       });
@@ -154,7 +162,7 @@ var app = angular.module('hexChan', ['ngMaterial',  'ui.router', 'templates'])
       threads.getThreads($stateParams.boardId, function(){
         // Valid thread
       }, function(){
-        window.location = '#/error/board';
+        window.location.replace('#/error/board');
       });
     }
 
@@ -187,7 +195,7 @@ var app = angular.module('hexChan', ['ngMaterial',  'ui.router', 'templates'])
       }
     })
     .success(function(response){
-      window.location = "#/home/board/" + $stateParams.boardId + "/" + $stateParams.threadId;
+      window.location.replace("#/home/board/" + $stateParams.boardId + "/" + $stateParams.threadId);
     })
     .error(function(response){
       console.log(response);
@@ -200,7 +208,7 @@ var app = angular.module('hexChan', ['ngMaterial',  'ui.router', 'templates'])
       var posts = cards.getCurrentCards();
       $scope.posts = cards.getCurrentCards();
     }, function(){
-      window.location = '#/error/thread';
+      window.location.replace('#/error/thread');
     });
 
   }
@@ -219,7 +227,7 @@ var app = angular.module('hexChan', ['ngMaterial',  'ui.router', 'templates'])
       };
 
       auth.register(JSON.stringify(user), function(){
-        window.location = "#/home/board";
+        window.location.replace("#/home/board");
       })
     };
     
@@ -231,7 +239,7 @@ var app = angular.module('hexChan', ['ngMaterial',  'ui.router', 'templates'])
       };
 
       auth.logIn(JSON.stringify(user), function(){
-        window.location = "#/home/board";
+        window.location.replace("#/home/board");
       })
       
     };
@@ -347,6 +355,10 @@ var app = angular.module('hexChan', ['ngMaterial',  'ui.router', 'templates'])
         'content':{
           templateUrl: 'boards.html',
           controller: 'boardsController'
+        },
+        'sideNavOptions': {
+          'templateUrl': 'sideNavGeneral.html',
+          'controller': 'navMainController'
         }
       }
     })
@@ -395,8 +407,8 @@ var app = angular.module('hexChan', ['ngMaterial',  'ui.router', 'templates'])
           controller: 'navMainController'
         },
         'sideNavOptions@':{
-          templateUrl: 'sideNavEmpty.html',
-          controller: ''
+          templateUrl: 'sideNavGeneral.html',
+          controller: 'navMainController'
         },
         'content@': {
           templateUrl: 'threadsNewThread.html',
