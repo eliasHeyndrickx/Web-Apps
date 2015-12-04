@@ -4,6 +4,7 @@ var Schema = mongoose.Schema;
 
 var PostSchema = new mongoose.Schema({
 	img: String,
+	author: String,
 	content: String,
 	threadId: Schema.Types.ObjectId
 });

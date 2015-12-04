@@ -3,6 +3,7 @@
 
 		"Post 1":{
 			"_id": "f841bfee0ac67df9daaec6bc",
+			"author": "",
 			"content": "Da post.", 
 	   	"img": "",
 	   	"threadId": "e74d6061efc50ac75fb9ff2a"
@@ -10,6 +11,7 @@
 
 		"Post 2":{
 			"_id": "e5f896aec2ed6e65bff22998",
+			"author": "Josh",
 			"content": "Fags", 
 	   	"img": "",
 	   	"threadId": "e74d6061efc50ac75fb9ff2a"
@@ -17,6 +19,7 @@
 
 		"Post 3":{
 			"_id": "8dd011724d8571278e320cca",
+			"author": "",
 			"content": "kill yourself op", 
 	   	"img": "",
 	   	"threadId": "e74d6061efc50ac75fb9ff2a"
@@ -24,6 +27,7 @@
 
 		"Post 4":{
 			"_id": "17c738f1de91f8281ff9d5c9",
+			"author": "",
 			"content": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.", 
 	   	"img": "",
 	   	"threadId": "e74d6061efc50ac75fb9ff2a"

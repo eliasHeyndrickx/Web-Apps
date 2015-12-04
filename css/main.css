@@ -3,7 +3,11 @@
 hr{
 	height: 0px;
 	border: none;
-	border-bottom: 1px solid rgba(0, 0, 0, 0.117647);;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.117647);
+}
+
+md-divider{
+	color: rgba(0, 0, 0, 0.117647);
 }
 
 input[type="file"]{
@@ -12,9 +16,6 @@ input[type="file"]{
 
 .whiteTxt{
 	color: white !important;
-}
-ng-md-icon{
-  vertical-align: middle
 }
 
 ::selection {
@@ -32,7 +33,23 @@ md-list-item{
 	padding-bottom: 5px !important;
 }
 
+.black{
+	color: black !important;
+}
+
+.white{
+	color: white !important;
+}
+
+.grey{
+	color: rgba(0, 0, 0, 0.54);
+}
+
 /* Side Nav */
+#nav-view{
+	width: 100%;
+}
+
 #sideNavUiView{
 	padding: 5px !important;
 }
@@ -44,16 +61,16 @@ md-list-item{
 	box-sizing: border-box; 
 }
 
+/* Login */
+#paddingRegister{
+	margin: 20px 0px !important;
+}
+
 /* NavMain */
 .logoText{
 	font-size: 25px;
 	margin-left: 10px;
 	max-width: 200px;
-}
-
-.iconFix{
-	display: block !important;
-	font-size: 36px;
 }
 
 .fltRight{
@@ -65,14 +82,13 @@ md-list-item{
 }
 
 /* Post Item */
-.post-content{
-	display: inline;
-	font-family: roboto;
-	white-space: pre-wrap;
-}
-
 .post-img{
 	float: left;
+}
+
+.post-content{
+	width: 100% !important;
+	white-space: pre-wrap;
 }
 
 .post-gt-lg > img{
@@ -81,7 +97,7 @@ md-list-item{
 	padding-right: 24px;
 }
 
-.post-gt-lg > p{
+.post-gt-lg{
 	font-size: 24px;
 }
 
@@ -92,7 +108,7 @@ md-list-item{
 	padding-bottom: 20px;
 }
 
-.post-lg > p{
+.post-lg{
 	font-size: 22px;
 }
 
@@ -102,7 +118,7 @@ md-list-item{
 	padding-right: 20px;
 }
 
-.post-md > p{
+.post-md{
 	font-size: 20px;
 }
 
@@ -112,7 +128,7 @@ md-list-item{
 	padding-right: 10px;
 }
 
-.post-sm > p{
+.post-sm{
 	font-size: 17px;
 }
 

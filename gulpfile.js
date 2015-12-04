@@ -1,5 +1,6 @@
 var gulp = require('gulp');
 var uglify = require('gulp-uglifyjs');
+var concat	= require('gulp-concat');
 var minifyCss = require('gulp-minify-css');
 var minifyHtml = require('gulp-minify-html');
 var rename = require("gulp-rename");
@@ -14,11 +15,21 @@ var IMG_SIZE = 1000;
 // ** Uglify and Bundle all JS files
 function uglifyCompressJS(){
 	console.log(getCurrentTime() + 'Cache templates, Uglify and compressing JS');
+	
+	// DIST
+	/*
 	gulp.src('./templates/*.html')
 	.pipe(templateCache({standalone: true}))
 	.pipe(addsrc(['./app.js', './js/*.js']))
 	.pipe(uglify({mangle: false}))
 	.pipe(rename('app.min.js'))
+	.pipe(gulp.dest('./public'));*/
+
+	// DEV
+	gulp.src('./templates/*.html')
+	.pipe(templateCache({standalone: true}))
+	.pipe(addsrc(['./app.js', './js/*.js']))
+	.pipe(concat('app.min.js'))
 	.pipe(gulp.dest('./public'));
 }
 
