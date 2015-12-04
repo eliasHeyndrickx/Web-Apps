@@ -1,0 +1,27 @@
+{
+	"Board":{
+		"anime":{
+			"_id": 1,
+			"title": "Anime Board", 
+	   	"img": "/img/boards/thumb/anime.jpg"
+		},
+
+		"games":{
+			"_id": 3,
+			"title": "Games Board", 
+	   	"img": "/img/boards/thumb/games.jpg"
+		},
+
+		"random":{
+			"_id": 7,
+			"title": "Random Board", 
+	   	"img": "/img/boards/thumb/random.jpg"
+		},
+
+		"tech":{
+			"_id": 15,
+			"title": "Tech Board", 
+	   	"img": "/img/boards/thumb/tech.jpg"
+		}
+	}
+}

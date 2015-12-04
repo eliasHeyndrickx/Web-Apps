@@ -1,0 +1,24 @@
+<md-content class="md-padding" layout="row">
+  <div flex-sm="0" flex-md="10" flex-lg="20" flex-gt-lg="20"></div>
+  <div flex-sm="100" flex-md="80" flex-lg="60" flex-gt-lg="60">
+    <md-card class = "md-padding">
+      <form name="postForm" ng-submit="newPost()" >
+        <md-input-container class="md-accent">
+          <label>Message</label>
+          <textarea required ng-model="content"
+           columns="1" md-maxlength="600" rows="5"></textarea>
+        </md-input-container>
+        </md-input-container>
+        <div>
+          <input accept="image/*" type="file" file-model="myFile"/>
+        </div>
+        <div>
+          <md-button type="submit" class="md-raised md-accent white">
+            Post
+            <md-icon class="material-icons md-light md-48 white">send</md-icon>
+          </md-button>  
+        </div>
+      </form>
+    </md-card>
+  </div>
+</md-content>

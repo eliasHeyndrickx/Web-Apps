@@ -1,0 +1,20 @@
+<md-autocomplete
+	class = "fltRight"
+  md-items="data in searchData | filter:searchText"
+  md-search-text="searchText"
+  md-search-text-change="searchTextUpdate()"
+  md-selected-item-change="searchTextUpdate()"
+  md-min-length="0"
+  placeholder="Search for boards"
+  md-item-text="data.title">
+  <md-item-template>
+    <span md-highlight-text="searchText" md-highlight-flags="^i">
+      {{data.title}}</span>
+  </md-item-template>
+</md-autocomplete>
+<md-button ng-hide="isLoggedIn()" hide show-gt-sm class="md-raised fltRight" hc-href="#/login">
+  <md-icon class="material-icons md-light md-48 black">account_box</md-icon>Login
+</md-button>
+<md-button ng-show="isLoggedIn()" hide show-gt-sm class="md-raised fltRight" ng-click="logout()">
+  <md-icon class="material-icons md-light md-48 black">account_box</md-icon>Logout
+</md-button>

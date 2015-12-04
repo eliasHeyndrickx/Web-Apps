@@ -1,0 +1,188 @@
+/* General */
+
+hr{
+	height: 0px;
+	border: none;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.117647);
+}
+
+input[type="file"]{
+	padding-bottom: 26px;
+}
+
+md-divider{
+	color: rgba(0, 0, 0, 0.117647);
+}
+
+md-list-item{
+	padding-top: 5px !important;
+	padding-bottom: 5px !important;
+}
+
+::selection {
+  background: #673AB7; /* WebKit/Blink Browsers */
+  color: white;
+}
+
+::-moz-selection {
+  background: #673AB7; /* Gecko Browsers */
+  color: white;
+}
+
+#content{
+	position: relative;
+}
+
+.black{
+	color: black !important;
+}
+
+.white{
+	color: white !important;
+}
+
+.grey{
+	color: rgba(0, 0, 0, 0.54);
+}
+
+/* Side Nav */
+#nav-view{
+	width: 100%;
+}
+
+#sideNavUiView{
+	padding: 5px !important;
+}
+
+.sideNavBtnStretch{
+	margin: 0px;
+	width: 100%;
+	padding: 5px;
+	box-sizing: border-box; 
+}
+
+/* Error */
+
+.errorHeading{
+	text-align: center;
+}
+
+.errorImg{
+	position: absolute; 
+	bottom: 0px; 
+	left: 	0px; 
+	right: 	0px; 
+	margin: 0 auto; 
+	max-height: 85%; 
+	max-width: 100%;
+}
+
+/* Login */
+#paddingRegister{
+	margin: 20px 0px !important;
+}
+
+/* NavMain */
+.logoText{
+	font-size: 25px;
+	margin-left: 10px;
+	max-width: 200px;
+}
+
+.fltRight{
+	float: right;
+}
+
+.rowNoPadding{
+	padding: 0px !important;
+}
+
+/* Post Item */
+.post-img{
+	float: left;
+}
+
+.post-content{
+	width: 100% !important;
+	white-space: pre-wrap;
+}
+
+.post-gt-lg > img{
+	max-width: 250px;
+	max-height: 250px;
+	padding-right: 24px;
+}
+
+.post-gt-lg{
+	font-size: 24px;
+}
+
+.post-lg > img{
+	max-width: 200px;
+	max-height: 200px;
+	padding-right: 20px;
+	padding-bottom: 20px;
+}
+
+.post-lg{
+	font-size: 22px;
+}
+
+.post-md > img{
+	max-width: 150px;
+	max-height: 150px;
+	padding-right: 20px;
+}
+
+.post-md{
+	font-size: 20px;
+}
+
+.post-sm > img{
+	max-width: 125px;
+	max-height: 125px;
+	padding-right: 10px;
+}
+
+.post-sm{
+	font-size: 17px;
+}
+
+/* Cards */
+.titleEllipsis{
+	white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.square{
+	box-sizing: border-box;
+	padding-top: 100%;
+	padding-right: 100%;
+	position: relative;
+}
+
+.square > img{
+	cursor: pointer;
+	width: 100%;
+	position: absolute;
+	top: 50%;
+	left: 0px;
+	transform: translate(0%, -50%);
+	-webkit-transform: translate(0%, -50%);
+}
+
+/* navSearch, Home */
+
+#navSearchHome{
+	width: 100% !important;
+}
+
+#navSearchHome > a{
+	padding: 0px;
+	text-align: center;
+}
+
+.navFontSize{
+	font-size: 26px !important;
+}

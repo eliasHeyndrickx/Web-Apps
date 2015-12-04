@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="hexChan">
+  <head>
+		<title>HexChan!</title>
+		<meta charset="utf-8"/>
+		<!-- Angular -->
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-aria.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-material/0.10.1/angular-material.min.js"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.10/angular-ui-router.js"></script>
+		<script type="text/javascript" src="app.min.js"></script>
+		<!-- Angular Material -->
+		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.4/angular-material.min.css">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<!-- App Code -->
+		<script type="text/javascript" src="app.min.js"></script>
+		<!-- CSS -->
+		<link rel="stylesheet" type="text/css" href="/css/main.css">
+	  <!-- Optimized for mobile -->
+	  <meta name="viewport" content="initial-scale=1" />
+  </head>
+  <body layout="column">
+    <md-toolbar layout="row">
+    	<div ui-view="nav" id ="nav-view"></div>
+    </md-toolbar>
+    <div layout="row" flex>
+      <md-sidenav id ="sideNav"
+       layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left">
+       	<md-toolbar class="md-theme-light">
+        	<h1 class="md-toolbar-tools">0xF Chan</h1>
+      	</md-toolbar>
+      	<div ui-view="sideNavOptions" id = "sideNavUiView"></div>
+      </md-sidenav>
+      <div layout="column" flex id = "content">  
+	      <div ui-view="content"></div>
+	    </div>
+    </div>
+  </body>
+</html>

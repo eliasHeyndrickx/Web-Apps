@@ -1,0 +1,10 @@
+{
+	"User":{
+		"Elias":{
+			"_id": "db4c1e28411c4a7d28f5ab79",
+			"username": "elias",
+			"hash": "bd346eaf5a952b59046edd841770113949f46b12ebe24c4f961ec93a42b7834f531551cb7e1009decd839a72b0cb4c73079e5f72b7a2fff4e5920a50166d33ca", 
+	   	"salt": "0x8C8D1400"
+		}
+	}
+}
