@@ -1,3 +1,7 @@
 <md-button
 hc-href = "#/home/board/{{boardId}}/newThread"
 class = "sideNavBtnStretch">New thread</md-button>
+<md-button hc-href = "#/login" ng-hide = "isLoggedIn()"
+class = "sideNavBtnStretch" >Login</md-button>
+<md-button ng-show="isLoggedIn()" ng-click="logout()"
+class = "sideNavBtnStretch">Logout</md-button>
