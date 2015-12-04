@@ -2,10 +2,14 @@
   <div flex-sm="0" flex-md="10" flex-lg="20" flex-gt-lg="20"></div>
   <div flex-sm="100" flex-md="80" flex-lg="60" flex-gt-lg="60">
     <md-card class = "md-padding">
+      <h1>Log In</h1>
       <form name="postForm" ng-submit="logIn()" >
-        <md-input-container flex>
-          <label>Username</label>
-          <input ng-model="user.username" required>
+        <md-input-container flex class="md-icon-float">
+         <md-input-container class="md-icon-float md-block">
+          <label>Name</label>
+          
+          <md-icon md-font-library="material-icons">face</md-icon>
+          <input ng-model="user.name" type="text">
         </md-input-container>
         <md-input-container>
           <label> Password </label>
@@ -15,7 +19,7 @@
         <div>
           <md-button type="submit" class="md-raised md-accent whiteTxt">
             Login
-            <ng-md-icon class="material-icons" md-48 md-light>send</ng-md-icon>
+            <md-icon class="material-icons md-light md-48 black">account_box</md-icon>Login
           </md-button>  
         </div>
       </form>

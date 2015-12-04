@@ -13,9 +13,6 @@ input[type="file"]{
 .whiteTxt{
 	color: white !important;
 }
-ng-md-icon{
-  vertical-align: middle
-}
 
 ::selection {
   background: #673AB7; /* WebKit/Blink Browsers */
@@ -32,7 +29,19 @@ md-list-item{
 	padding-bottom: 5px !important;
 }
 
+.black{
+	color: black !important;
+}
+
+.white{
+	color: white !important;
+}
+
 /* Side Nav */
+#nav-view{
+	width: 100%;
+}
+
 #sideNavUiView{
 	padding: 5px !important;
 }
@@ -49,11 +58,6 @@ md-list-item{
 	font-size: 25px;
 	margin-left: 10px;
 	max-width: 200px;
-}
-
-.iconFix{
-	display: block !important;
-	font-size: 36px;
 }
 
 .fltRight{

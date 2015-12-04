@@ -212,7 +212,7 @@ var app = angular.module('hexChan', ['ngMaterial',  'ui.router', 'templates'])
     $scope.logIn = function(){
 
       user = {
-        username: $scope.user.username,
+        username: $scope.user.name,
         password: $scope.user.password
       };
 
