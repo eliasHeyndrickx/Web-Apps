@@ -53,7 +53,6 @@ angular.module('hexChan')
 
 			// Set error messages
 			this.setErrorState = function(errState, error){
-				if(errState && typeof error !== "undefined") console.log(error);
 				errorState = errState;
 			};
 

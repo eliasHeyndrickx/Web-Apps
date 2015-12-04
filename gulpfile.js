@@ -1,16 +1,18 @@
-var gulp = require('gulp');
-var uglify = require('gulp-uglifyjs');
-var concat	= require('gulp-concat');
-var minifyCss = require('gulp-minify-css');
-var minifyHtml = require('gulp-minify-html');
-var rename = require("gulp-rename");
-var templateCache = require('gulp-angular-templatecache');
-var imageResize = require('gulp-image-resize');
-var rimraf = require('gulp-rimraf');
-var addsrc = require('gulp-add-src');
-var watch = require('gulp-watch');
+var gulp 						= require('gulp');
+var uglify 					= require('gulp-uglifyjs');
+var concat					= require('gulp-concat');
+var minifyCss 			= require('gulp-minify-css');
+var minifyHtml 			= require('gulp-minify-html');
+var rename 					= require("gulp-rename");
+var templateCache 	= require('gulp-angular-templatecache');
+var imgResize 			= require('gulp-image-resize');
+var imgOptimize			= require('gulp-imagemin');
+var rimraf 					= require('gulp-rimraf');
+var addsrc 					= require('gulp-add-src');
+var watch 					= require('gulp-watch');
 
-var IMG_SIZE = 1000;
+var mkdirp 					= require('mkdirp');
+var pngQuant 				= require('imagemin-pngquant');
 
 // ** Uglify and Bundle all JS files
 function uglifyCompressJS(){
@@ -53,13 +55,16 @@ function compressHtmlIndex(){
 // ** Update board update board images
 function resizeImages(){
 	console.log(getCurrentTime() + 'Resizing Images...');
+	// -- Create folder tmp
+	mkdirp('./public/img/tmp');
+
 	// -- Resizing thread images
 		gulp.src('./public/img/threads')
 		.pipe(rimraf());
 
-		gulp.src('./img/threads/*.jpg')
-	    .pipe(imageResize({ 
-	      width: IMG_SIZE
+		gulp.src('./img/threads/*.*')
+	    .pipe(imgResize({ 
+	      width: 1000
 	    }))
 		.pipe(gulp.dest('./public/img/threads'));		
 
@@ -68,11 +73,19 @@ function resizeImages(){
 		gulp.src('./public/img/boards/thumb')
 		.pipe(rimraf());
 
-		gulp.src('./img/boards/*.jpg')
-	    .pipe(imageResize({ 
-	      width: IMG_SIZE
+		gulp.src('./img/boards/*.*')
+	    .pipe(imgResize({ 
+	      width: 1000
 	    }))
 		.pipe(gulp.dest('./public/img/boards/thumb'));
+
+	// -- Resizing error images
+		gulp.src('./public/img/error/*.*')
+		.pipe(rimraf());
+
+		gulp.src('./img/error/*')
+		.pipe(gulp.dest('./public/img/error'));
+
 }
 
 // ** Minify CSS

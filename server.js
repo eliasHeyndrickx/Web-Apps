@@ -106,36 +106,69 @@ mongoose.connection.on('open', function mongooseOpen(err){
 
 // Routing
 
+function isValidBoardId(id){
+	return !isNaN(id);
+}
+
+function isValidThreadId(id){
+	return /^[0-9a-f]{24}$/.test(id);
+}
+
 // Board Routing
 router.param('board', function(req, res, next, id){
-	var query = Board.find({_id: id});
+	if(!isValidBoardId(id)){
+		res.status(404).send("Invalid board id!");
+	}else{
+		var query = Board.findOne({_id: +id});
 
-	query.exec(function (err, board){
-    if (err) { return next(err); }
-    if (!board) { return next(new Error("Can't find board!")); }
-
-    req.board = board[0];
-    return next();
-  });
+		query.exec(function (err, board){
+	    if (err) { return next(err); }
+	    if (!board) { 
+	    	res.status(404).send("Can't find board!");
+	    }else{
+	    	req.board = board;
+	    	return next();
+	    }
+	  });
+	}
 });
 
 // Thread Routing
 router.param('thread', function(req, res, next, id){
-	var query = Thread.find({_id: id});
+	if(!isValidThreadId(id)){
+		res.status(404).send("Invalid thread id!");
+	}else{
+		var query = Thread.findOne({_id: id});
 
-	query.exec(function (err, thread){
-    if (err) { return next(err); }
-    if (!thread) { return next(new Error("Can't find thread!")); }
-
-    req.thread = thread[0];
-    return next();
-  });
+		query.exec(function (err, thread){
+	    if (err) { return next(err); }
+	    if (!thread) { 
+	    	res.status(404).send("Can't find thread!"); 
+	    }else{
+	    	req.thread = thread;
+	    	return next();	
+	    }
+	  });
+	}	
 });
 
-// Returning ID's
-router.param('id', function(req, res, next, id){
-	req.id = id;
-	return next();
+// Returning Board ID's
+router.param('boardId', function(req, res, next, id){
+	if(!isValidBoardId(id)){
+		res.status(404).send("Invalid board id!");
+	}else{
+		req.id = id;
+		return next();
+	}
+});
+
+router.param('threadId', function(req, res, next, id){
+	if(!isValidThreadId(id)){
+		res.status(404).send("Invalid thread id!");
+	}else{
+		req.id = id;
+		return next();
+	}
 });
 
 // Get all boards
@@ -152,11 +185,23 @@ router.get('/board/:board', function(req, res, next){
 });
 
 // Get all threads from specific board
-router.get('/threads/:id', function(req, res, next){
-	Thread.find({boardId: req.id}, function(err, threads){
-		if(err) console.log(err);
-		res.json(threads);
+router.get('/threads/:boardId', function(req, res, next){
+
+	// Check if board exists
+	Board.findOne({_id: req.id}, function(err, board){
+
+		if(board === null){
+			res.status(404).send("Can't find board!"); // Send error
+		}else{
+			// Get thread from board
+			Thread.find({boardId: req.id}, function(err, threads){
+				if(err) console.log(err);
+				res.json(threads);
+			});
+		}
+
 	});
+	
 });
 
 // Get specific thread
@@ -189,7 +234,7 @@ router.post('/thread/newThread', upload.single('threadImg'), function(req, res, 
 });
 
 // Get all posts from specific thread
-router.get('/posts/:id', function(req, res, next){
+router.get('/posts/:threadId', function(req, res, next){
 	Post.find({threadId: req.id}, function(err, posts){
 		if(err) console.log(err);
 		res.json(posts);
@@ -201,8 +246,6 @@ router.post('/post/newPost', auth, upload.single('postImg'), function(req, res, 
 	console.log("Processing New Post...");
 
 	var postData = JSON.parse(req.body.data);
-
-	console.log(postData);
 
 	var post = new Post({
 		author: (typeof req.loginData === "undefined") ? "" : req.loginData.username,
@@ -225,8 +268,6 @@ router.post('/post/newPost', auth, upload.single('postImg'), function(req, res, 
 
 // Register
 router.post('/register', function(req, res, next){
-	console.log("hi");
-
   if(!req.body.username || !req.body.password)
     return;
   
