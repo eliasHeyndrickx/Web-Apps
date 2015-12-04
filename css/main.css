@@ -6,6 +6,10 @@ hr{
 	border-bottom: 1px solid rgba(0, 0, 0, 0.117647);
 }
 
+md-divider{
+	color: rgba(0, 0, 0, 0.117647);
+}
+
 input[type="file"]{
 	padding-bottom: 26px;
 }
@@ -70,6 +74,7 @@ md-list-item{
 
 /* Post Item */
 .post-img{
+	float: left;
 }
 
 .post-content{

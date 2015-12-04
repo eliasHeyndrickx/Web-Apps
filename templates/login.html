@@ -4,25 +4,24 @@
     <md-card class = "md-padding">
       <h1>Log In</h1>
       <form name="postForm" ng-submit="logIn()" >
-        <md-input-container flex class="md-icon-float">
-         <md-input-container class="md-icon-float md-block">
+        <md-input-container class="md-icon-float md-block">
           <label>Name</label>
-          
-          <md-icon md-font-library="material-icons">face</md-icon>
-          <input ng-model="user.name" type="text">
+          <md-icon class="material-icons black">person</md-icon>
+          <input ng-model="username" type="text">
         </md-input-container>
-        <md-input-container>
-          <label> Password </label>
-          <input ng-model="user.password" type="password" required>
-        </md-input-container>
+        <md-input-container class="md-icon-float md-block">
+          <label>Password</label>
+          <md-icon class="material-icons black">vpn_key</md-icon>
+          <input ng-model="password" type="password">
         </md-input-container>
         <div>
           <md-button type="submit" class="md-raised md-accent whiteTxt">
             Login
-            <md-icon class="material-icons md-light md-48 black">account_box</md-icon>Login
+            <md-icon class="material-icons md-light md-48 white">send</md-icon>
           </md-button>  
         </div>
       </form>
+      <a>DOn't have an account yet? Register here!</a>
     </md-card>
   </div>
 </md-content>
