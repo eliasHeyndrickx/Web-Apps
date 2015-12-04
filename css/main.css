@@ -70,7 +70,7 @@ md-list-item{
 
 .post-content{
 	width: 100% !important;
-	white-space: pre-line;
+	white-space: pre-wrap;
 }
 
 .post-gt-lg > img{
