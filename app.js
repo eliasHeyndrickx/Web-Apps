@@ -191,10 +191,6 @@ var app = angular.module('hexChan', ['ngMaterial',  'ui.router', 'templates'])
     posts.getPosts($stateParams.threadId, function(){
       var posts = cards.getCurrentCards();
 
-      for(var i = 0, l = posts.length; i < l; i++){
-        console.log(posts[i]);
-      }
-
       $scope.posts = cards.getCurrentCards();
     });
   }
@@ -256,6 +252,17 @@ var app = angular.module('hexChan', ['ngMaterial',  'ui.router', 'templates'])
         }
     };
 }])
+.filter('anonReplacer', function() {
+  return function(input) {
+    if(typeof input !== "undefined"){
+      for(var i = 0, l = input.length; i < l; i++){
+        if(!input[i].author) input[i].author = "anonymous";
+      }
+
+      return input;
+    }
+  };
+})
 .config(['$mdThemingProvider', '$stateProvider','$urlRouterProvider',
 	function($mdThemingProvider, $stateProvider, $urlRouterProvider){
 
