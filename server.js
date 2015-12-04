@@ -200,12 +200,9 @@ router.get('/posts/:id', function(req, res, next){
 router.post('/post/newPost', auth, upload.single('postImg'), function(req, res, next) {
 	console.log("Processing New Post...");
 
-	// Registerd User?
-	if(typeof req.loginData !== "undefined"){
-		console.log(req.loginData);
-	}
-
 	var postData = JSON.parse(req.body.data);
+
+	console.log(postData);
 
 	var post = new Post({
 		author: (typeof req.loginData === "undefined") ? "" : req.loginData.username,

@@ -1,37 +1,44 @@
 <md-content class="md-padding" layout-wrap>
   <md-list>
-      <md-list-item class="md-list-item-text" ng-repeat="post in posts | anonReplacer">
+      <md-list-item class="md-list-item-text" ng-repeat="post in posts | postFormatter">
         <!-- Extra Large devices -->
-        <div hide show-gt-lg class = "post-gt-lg">
-          <img ng-src = "{{post.img}}"
-               ng-show = "hideImg(post)"
-               alt = "Post Image"
-               class = "post-img">
-          <p class = "post-content"><b>{{post.author}}</b><br/>{{post.content}}</p>
+        <div hide show-gt-lg class="post-gt-lg post-content"><!--
+          --><img ng-src = "{{post.img}}" style = "float: left;"
+            ng-show = "hideImg(post)"
+            alt = "Post Image"
+            class = "post-img"/><!--
+          --><b>{{post.author}}</b><br><!--
+          -->{{post.content}}
         </div>
         <!-- Large devices -->
-        <div hide show-lg class="post-lg">
+        <div hide show-lg class="post-lg post-content">
           <img ng-src = "{{post.img}}"
-               ng-show = "hideImg(post)"
-               alt = "Post Image"
-               class = "post-img">
-          <p class = "post-content"><b>{{post.author}}</b><br/>{{post.content}}</p>
+            ng-show = "hideImg(post)"
+            alt = "Post Image"
+            class = "post-img"/>
+          <b>{{post.author}}</b>
+          <br/> 
+          <span ng-repeat="line in post.lines">{{line}}</span>
         </div>
         <!-- Medium devices -->
-        <div hide show-md class="post-md">
+        <div hide show-md class="post-md post-content">
           <img ng-src = "{{post.img}}"
-               ng-show = "hideImg(post)"
-               alt = "Post Image"
-               class = "post-img">
-          <p class = "post-content"><b>{{post.author}}</b><br/>{{post.content}}</p>
+            ng-show = "hideImg(post)"
+            alt = "Post Image"
+            class = "post-img"/>
+          <b>{{post.author}}</b>
+          <br/> 
+          <span ng-repeat="line in post.lines">{{line}}</span>
         </div>
         <!-- Small devices -->
-        <div hide show-sm class="post-sm">
+        <div hide show-sm class="post-sm post-content">
           <img ng-src = "{{post.img}}"
-               ng-show = "hideImg(post)"
-               alt = "Post Image"
-               class = "post-img">
-          <p class = "post-content"><b>{{post.author}}</b><br/>{{post.content}}</p>
+            ng-show = "hideImg(post)"
+            alt = "Post Image"
+            class = "post-img"/>
+          <b>{{post.author}}</b>
+          <br/> 
+          <span ng-repeat="line in post.lines">{{line}}</span>
         </div>
         <md-divider ng-if="!$last"></md-divider>
       </md-list-item>

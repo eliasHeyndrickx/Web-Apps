@@ -252,7 +252,7 @@ var app = angular.module('hexChan', ['ngMaterial',  'ui.router', 'templates'])
         }
     };
 }])
-.filter('anonReplacer', function() {
+.filter('postFormatter', function() {
   return function(input) {
     if(typeof input !== "undefined"){
       for(var i = 0, l = input.length; i < l; i++){

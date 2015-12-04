@@ -3,7 +3,7 @@
 hr{
 	height: 0px;
 	border: none;
-	border-bottom: 1px solid rgba(0, 0, 0, 0.117647);;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.117647);
 }
 
 input[type="file"]{
@@ -65,14 +65,12 @@ md-list-item{
 }
 
 /* Post Item */
-.post-content{
-	display: inline;
-	font-family: roboto;
-	white-space: pre-wrap;
+.post-img{
 }
 
-.post-img{
-	float: left;
+.post-content{
+	width: 100% !important;
+	white-space: pre-line;
 }
 
 .post-gt-lg > img{
@@ -81,7 +79,7 @@ md-list-item{
 	padding-right: 24px;
 }
 
-.post-gt-lg > p{
+.post-gt-lg{
 	font-size: 24px;
 }
 
@@ -92,7 +90,7 @@ md-list-item{
 	padding-bottom: 20px;
 }
 
-.post-lg > p{
+.post-lg{
 	font-size: 22px;
 }
 
@@ -102,7 +100,7 @@ md-list-item{
 	padding-right: 20px;
 }
 
-.post-md > p{
+.post-md{
 	font-size: 20px;
 }
 
@@ -112,7 +110,7 @@ md-list-item{
 	padding-right: 10px;
 }
 
-.post-sm > p{
+.post-sm{
 	font-size: 17px;
 }
 
