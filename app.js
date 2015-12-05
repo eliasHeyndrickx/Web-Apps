@@ -452,7 +452,7 @@ var app = angular.module('hexChan', ['ngMaterial',  'ui.router', 'templates'])
           controller: 'navMainController'
         },
         'sideNavOptions@':{
-          templateUrl: 'sideNavEmpty.html',
+          templateUrl: 'sideNavGeneral.html',
           controller: ''
         },
         'content@': {
