@@ -10,6 +10,7 @@ var imgOptimize			= require('gulp-imagemin');
 var rimraf 					= require('gulp-rimraf');
 var addsrc 					= require('gulp-add-src');
 var watch 					= require('gulp-watch');
+var mocha 					= require("gulp-mocha");
 
 var mkdirp 					= require('mkdirp');
 var pngQuant 				= require('imagemin-pngquant');
@@ -19,20 +20,21 @@ function uglifyCompressJS(){
 	console.log(getCurrentTime() + 'Cache templates, Uglify and compressing JS');
 	
 	// DIST
-	/*
 	gulp.src('./templates/*.html')
 	.pipe(templateCache({standalone: true}))
 	.pipe(addsrc(['./app.js', './js/*.js']))
 	.pipe(uglify({mangle: false}))
 	.pipe(rename('app.min.js'))
-	.pipe(gulp.dest('./public'));*/
+	.pipe(gulp.dest('./public'));
 
+	/*
 	// DEV
 	gulp.src('./templates/*.html')
 	.pipe(templateCache({standalone: true}))
 	.pipe(addsrc(['./app.js', './js/*.js']))
 	.pipe(concat('app.min.js'))
 	.pipe(gulp.dest('./public'));
+	*/
 }
 
 // ** Uglify server JS
@@ -113,6 +115,13 @@ function getCurrentTime(){
 					 	 + minutes 	+ ':'
 					 	 + seconds	+ '] ';
 }
+
+// Tests
+
+gulp.task("runTests", function() {
+    return gulp.src("./test/*.js")
+    .pipe(mocha());
+});
 
 // Watch files for changes
 gulp.task('default', function(){

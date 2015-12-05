@@ -8,8 +8,10 @@
   "main": "server.js",
   "dependencies": {
     "body-parser": "~1.14",
+    "chai": "^3.4.1",
     "express": "~4.7.2",
     "express-jwt": "^3.3.0",
+    "gulp-mocha": "^2.2.0",
     "gulp-uglifyjs": "^0.6.2",
     "imagemin-pngquant": "^4.2.0",
     "jsonwebtoken": "^5.4.1",
@@ -19,6 +21,7 @@
     "multer": "^1.1.0",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
+    "supertest": "^1.1.0",
     "uuid": "^2.0.1"
   },
   "devDependencies": {

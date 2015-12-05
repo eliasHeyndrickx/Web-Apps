@@ -307,12 +307,16 @@ router.get('/public', function(req, res){
 
 console.log("Starting up server!");
 
-app.listen(3000);
+if(!module.parent){ 
+	app.listen(3000);
+}
 
 // Methods
 function stringStartsWith (str, prefix) {
     return str.slice(0, prefix.length) == prefix;
 }
+
+module.exports = app;
 
 
 
